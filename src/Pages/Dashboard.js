@@ -12,8 +12,6 @@ const Dashboard = memo(() => {
     url: "/analytics",
   });
 
-  console.log(process.env.REACT_APP_BASE_URL);
-
   return (
     <>
       {/* Row 1 */}
@@ -34,13 +32,13 @@ const Dashboard = memo(() => {
             <div className="text-center smallContainer radius slot md:col-span-1 min-w-[10rem] min-h-[10rem] max-h-[15rem] shadow-sm">
               <h3 className=" headerText">Purchased</h3>
               <p className="text-8xl slotNumbers">
-                {analytics && FormatSlotNumber(analytics?.salesBillCount)}
+                {analytics?.salesBillCount && FormatSlotNumber(analytics?.salesBillCount)}
               </p>
             </div>
             <div className="text-center smallContainer radius slot md:col-span-1 min-w-[10rem] min-h-[10rem] max-h-[15rem] shadow-sm">
               <h3 className=" headerText">Stitched</h3>
               <p className="text-8xl slotNumbers">
-                {analytics && FormatSlotNumber(analytics?.stitchBillCount)}
+                {analytics?.stitchBillCount && FormatSlotNumber(analytics?.stitchBillCount)}
               </p>
             </div>
           </section>
@@ -48,13 +46,13 @@ const Dashboard = memo(() => {
             <div className="text-center smallContainer radius slot md:col-span-1 min-w-[10rem] min-h-[10rem] max-h-[15rem] shadow-sm">
               <h3 className=" headerText">New</h3>
               <p className="text-8xl slotNumbers">
-                {analytics && FormatSlotNumber(analytics?.newCustomers)}
+                {analytics?.newCustomers && FormatSlotNumber(analytics?.newCustomers)}
               </p>
             </div>
             <div className="text-center smallContainer radius slot md:col-span-1 min-w-[10rem] min-h-[10rem] max-h-[15rem] shadow-sm">
               <h3 className=" headerText">Customers</h3>
               <p className="text-8xl slotNumbers">
-                {analytics && FormatSlotNumber(analytics?.customers)}
+                {analytics?.customers && FormatSlotNumber(analytics?.customers)}
               </p>
             </div>
           </section>
@@ -62,18 +60,18 @@ const Dashboard = memo(() => {
         <div className="md:col-span-2 grid gap-[1px] radius slot">
           <div className="smallContainer rounded-t-xl min-h-[10rem] shadow-sm">
             <h1 className="headerText">
-              {analytics && DateFormatter(
+              {analytics?.dailyData[analytics?.dailyData.length - 2]?.income && DateFormatter(
                 analytics?.dailyData[analytics?.dailyData.length - 2]?.date
               )}
             </h1>
             <p>
               Income :&nbsp;
-              {analytics && analytics?.dailyData[analytics?.dailyData.length - 2]?.income}
+              {analytics?.dailyData[analytics?.dailyData.length - 2]?.income && analytics?.dailyData[analytics?.dailyData.length - 2]?.income}
             </p>
           </div>
           <div className="smallContainer rounded-b-xl min-h-[10rem] shadow-sm">
             <h1 className="headerText">
-              {analytics && DateFormatter(
+              {analytics?.dailyData[analytics?.dailyData.length - 1]?.date && DateFormatter(
                 analytics?.dailyData[analytics?.dailyData.length - 1]?.date
               )}
             </h1>
@@ -89,13 +87,13 @@ const Dashboard = memo(() => {
         <div className="smallContainer radius slot flex-1 min-w-[15rem] min-h-[15rem] shadow-sm">
           <h1 className=" headerText">Total sold bill income</h1>
           <p className="text-7xl h-full justify-center items-center flex slotNumbers">
-            {analytics && FormatNumber(analytics?.sales)}
+            {analytics?.sales && FormatNumber(analytics?.sales)}
           </p>
         </div>
         <div className="smallContainer headerText radius slot flex-1 min-w-[15rem] min-h-[15rem] shadow-sm">
           <h1 className=" headerText">Total stitch bill income</h1>
           <p className="text-7xl h-full justify-center items-center flex slotNumbers">
-            {analytics && FormatNumber(analytics?.stitch)}
+            {analytics?.stitch && FormatNumber(analytics?.stitch)}
           </p>
         </div>
         <div className="smallContainer headerText radius slot flex-1 min-w-[15rem] min-h-[15rem] shadow-sm">
@@ -107,7 +105,7 @@ const Dashboard = memo(() => {
         <div className="smallContainer headerText radius slot flex-1 min-w-[15rem] min-h-[15rem] shadow-sm">
           <h1 className=" headerText">Monthly Revenue</h1>
           <p className="text-7xl h-full justify-center items-center flex slotNumbers">
-            {analytics && FormatNumber(
+            {analytics?.monthlyData[analytics?.monthlyData.length - 1]?.income && FormatNumber(
               analytics?.monthlyData[analytics?.monthlyData.length - 1]?.income
             )}
           </p>
