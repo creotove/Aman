@@ -1,0 +1,4 @@
+500 - Catch block
+400 -  undefined variable or not sent from frontend
+404 - not found
+200 - ok
