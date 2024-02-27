@@ -1,7 +1,6 @@
 {
   "name": "aman",
   "version": "0.1.0",
-  "homepage": ".",
   "proxy": "https://project-aman.vercel.app/",
   "private": true,
   "dependencies": {
