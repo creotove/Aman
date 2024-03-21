@@ -6,11 +6,7 @@ const useAxios = (configObj) => {
   const [response, setResponse] = useState();
   const [error, setError] = useState("");
   const [loading, setIsLoading] = useState(true);
-  const [reload, setReload] = useState(0);
 
-  const refetch = () => {
-    setReload((prev) => prev + 1);
-  };
   useEffect(() => {
     const controller = new AbortController();
     const fetchData = async () => {
@@ -29,13 +25,13 @@ const useAxios = (configObj) => {
       }
     };
     fetchData();
-    return () => {
-      controller.abort();
-    };
+    // return () => {
+    //   controller.abort();
+    // };
     // eslint-disable-next-line
-  }, [reload]);
+  }, []);
 
-  return [response, error, loading, refetch];
+  return [response, error, loading];
 };
 
 export default useAxios;

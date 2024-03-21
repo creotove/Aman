@@ -43,7 +43,7 @@ const ClothingMgmt = () => {
   const [cuttingAmt, setCuttingAmt] = useState("");
 
   // add data to server
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       name === "" ||
       stitchingAmtCustomer === "" ||
@@ -52,28 +52,61 @@ const ClothingMgmt = () => {
       measurementNames.length === 0
     )
       return;
-    const data = {
-      name,
-      stitchingAmtCustomer,
-      stitchingAmtTailor,
-      cuttingAmt,
-      measurements: measurementNames,
-    };
-    console.log(data);
+    try {
+      const data = {
+        name,
+        stitchingAmtCustomer,
+        stitchingAmtTailor,
+        cuttingAmt,
+        measurements: measurementNames,
+      };
+      const res = await axios.post("/addClothingItem", data);
+      if (res.data.success) {
+        setShowToast(true);
+        setToastMsg(res.data?.message);
+        setToastType("success");
+        getClotingItems();
+        setName("");
+        setStitchingAmtCustomer("");
+        setStitchingAmtTailor("");
+        setCuttingAmt("");
+        setMeasurementNames([]);
+        getClotingItems();
+      }
+    } catch (error) {
+      setShowToast(true);
+      setToastMsg(error.response.data.message);
+      setToastType("error");
+      console.log(error.response.data.message);
+    }
   };
 
-  // retrive data from server
-  const [clothingItems, error, loading] = useAxios({
-    axiosInstance: axios,
-    method: "GET",
-    url: "/clothingItems",
-    requestConfig: {
-      headers: {
-        "Content-Language": "en-US",
-      },
-    },
-  });
-
+  const getClotingItems = async () => {
+    try {
+      const res = await axios.get("/clothingItems");
+      if (res.data.success) {
+        const clothingItems = res.data.data;
+        const newAccordions = clothingItems.map((item, i) => {
+          return {
+            id: item._id,
+            key: i + 1,
+            name: item.name,
+            measurements: item.measurements,
+            stitchingAmtCustomer: item.stitchingAmtCustomer,
+            stitchingAmtTailor: item.stitchingAmtTailor,
+            cuttingAmt: item.cuttingAmt,
+            isOpen: false,
+          };
+        });
+        setAccordion(newAccordions);
+      }
+    } catch (error) {
+      setShowToast(true);
+      setToastMsg(error.response.data.message);
+      setToastType("error");
+      console.log(error.response.data.message);
+    }
+  };
   const {
     showToast,
     setShowToast,
@@ -85,8 +118,21 @@ const ClothingMgmt = () => {
   } = useToast();
 
   // delete data from server
-  const handleDelete = (i) => {
-    console.log(i);
+  const handleDelete = async (id) => {
+    try {
+      const res = await axios.delete(`/deleteClothingItem/${id}`);
+      if (res.data.success) {
+        setShowToast(true);
+        setToastMsg(res.data.message);
+        setToastType("success");
+        getClotingItems();
+      }
+    } catch (error) {
+      setShowToast(true);
+      setToastMsg(error.response.data.message);
+      setToastType("error");
+      console.log(error.response.data.message);
+    }
   };
   // get data to edit in the form
   const handleEdit = (i) => {
@@ -96,28 +142,31 @@ const ClothingMgmt = () => {
     setCuttingAmt(accordions[i].cuttingAmt);
     setMeasurementNames(accordions[i].measurements);
   };
-
   useEffect(() => {
-    const newAccordions =
-      clothingItems &&
-      clothingItems.map((item, i) => {
-        return {
-          key: i + 1,
-          name: item.name,
-          measurements: item.measurements,
-          stitchingAmtCustomer: item.stitchingAmtCustomer,
-          stitchingAmtTailor: item.stitchingAmtTailor,
-          cuttingAmt: item.cuttingAmt,
-          isOpen: false,
-        };
-      });
-    setAccordion(newAccordions);
-    if (error) {
-      setShowToast(true);
-      setToastMsg(error);
-      setToastType("error");
-    }
-  }, [clothingItems,error]);
+    getClotingItems();
+  }, []);
+  // useEffect(() => {
+  //   const newAccordions =
+  //     clothingItems &&
+  //     clothingItems.map((item, i) => {
+  //       return {
+  //         id: item._id,
+  //         key: i + 1,
+  //         name: item.name,
+  //         measurements: item.measurements,
+  //         stitchingAmtCustomer: item.stitchingAmtCustomer,
+  //         stitchingAmtTailor: item.stitchingAmtTailor,
+  //         cuttingAmt: item.cuttingAmt,
+  //         isOpen: false,
+  //       };
+  //     });
+  //   setAccordion(newAccordions);
+  //   if (error) {
+  //     setShowToast(true);
+  //     setToastMsg(error);
+  //     setToastType("error");
+  //   }
+  // }, [clothingItems, error]);
   return (
     <>
       {showToast && (
@@ -247,6 +296,7 @@ const ClothingMgmt = () => {
                 <Accordion
                   key={accordion.key}
                   index={i}
+                  id={accordion.id}
                   name={accordion.name}
                   measurements={accordion.measurements}
                   stitchingAmtCustomer={accordion.stitchingAmtCustomer}

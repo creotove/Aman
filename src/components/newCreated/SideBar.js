@@ -62,7 +62,7 @@ const SideBar = () => {
 
   const handleItemClick = (itemId, itemTo) => {
     // if (activeItem === itemId) return;
-    if (!location.pathname.startsWith(itemTo) && activeItem === itemId) return;
+    if (!location.pathname.includes(itemTo) && activeItem === itemId) return;
     setActiveItem(itemId);
     navigate(itemTo);
   };
@@ -70,7 +70,7 @@ const SideBar = () => {
   React.useEffect(() => {
     const activeItem = navItems.find((item) => {
       const itemPath = item.to;
-      return location.pathname === itemPath || location.pathname.startsWith(itemPath + '/');
+      return location.pathname === itemPath || location.pathname.includes(itemPath + '/');
     });
     if (activeItem) {
       setActiveItem(activeItem.id);

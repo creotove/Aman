@@ -54,8 +54,20 @@
   background-color: #000;
   border-radius: 0.9rem;
   padding: 0.5rem;
+  padding-left: 1rem;
 }
-
+.delete{
+  background-color: #FC3447;
+  border: 2px solid #FF7683;
+}
+.delete:hover{
+  background-color: #ff283e;
+}
+.deleteBtn{
+  padding: 0.5rem 1.75rem;
+  border-radius: 0.9rem;
+  cursor: pointer;
+}
 .inputBox:hover {
   background-color: #070707;
   border-radius: 0.9rem;

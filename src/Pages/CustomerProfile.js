@@ -1,35 +1,114 @@
-import React, { useState } from "react";
-import Modal from "../components/newCreated/Modal";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import useAxios from "../hooks/useAxios";
 import axios from "../apis/admin";
 import FormatSlotNumber from "../components/newCreated/FormatSlotNumber";
 import DateFormatter from "../components/newCreated/DateFormatter";
+import Modal from "../components/newCreated/Modal";
+import MeasurementAccordian from "../components/newCreated/MeasurementAccordian";
+import useToast from "../hooks/useToast";
+import Toast from "../components/newCreated/Toast";
 
 const CustomerProfile = () => {
   const location = useLocation();
   const { id } = location.state;
-  console.log(id);
-  const [customerProfile, customerProfileError, customerProfileLoading] =
-    useAxios({
-      axiosInstance: axios,
-      method: "GET",
-      url: `/customer/${id}`,
-      requestConfig: {
-        headers: {
-          "Content-Language": "en-US",
-        },
+  const [modalState, setModalState] = useState(false);
+  const [customerProfile, error] = useAxios({
+    axiosInstance: axios,
+    method: "GET",
+    url: `/customer/${id}`,
+    requestConfig: {
+      headers: {
+        "Content-Language": "en-US",
       },
+    },
+  });
+
+  const {
+    showToast,
+    setShowToast,
+    toastMsg,
+    setToastMsg,
+    setToastType,
+    toastType,
+    showToastMessage,
+  } = useToast();
+  // Accordian
+  const [accordions, setAccordion] = useState([]);
+  const toggleAccordion = (accordionkey) => {
+    const updatedAccordions = accordions.map((accord) => {
+      if (accord.key === accordionkey) {
+        return { ...accord, isOpen: !accord.isOpen };
+      } else {
+        return { ...accord, isOpen: false };
+      }
     });
 
+    setAccordion(updatedAccordions);
+  };
+  useEffect(() => {
+    const newAccordions =
+      customerProfile?.measurements &&
+      customerProfile?.measurements.map((item, i) => {
+        return {
+          key: i + 1,
+          name: item.name,
+          measurements: item.measurements,
+          stitchingAmtCustomer: item.stitchingAmtCustomer,
+          stitchingAmtTailor: item.stitchingAmtTailor,
+          cuttingAmt: item.cuttingAmt,
+          isOpen: false,
+        };
+      });
+    setAccordion(newAccordions);
+    if (error) {
+      setShowToast(true);
+      setToastMsg(error);
+      setToastType("error");
+    }
+  }, [customerProfile, error]);
   return (
     <>
+      {showToast && (
+        <Toast
+          message={toastMsg}
+          type={toastType}
+          showToastMessage={showToastMessage}
+        />
+      )}
       <section className="text-white relative">
         {/* Actions */}
         <div className="flex flex-col md:flex-row justify-end gap-4">
-          <button className="myBtn radius ">View Measurement</button>
+          {customerProfile && customerProfile?.measurements?.length > 0 && (
+            <button
+              className="myBtn radius"
+              onClick={() => setModalState(true)}
+            >
+              View Measurement
+            </button>
+          )}
+          <Modal
+            title={"Customer Measurements"}
+            modalState={modalState}
+            setModalState={setModalState}
+          >
+            <div className="flex justify-center items-center">
+              <div className="grid md:grid-cols-12 w-64 gap-4">
+                {accordions &&
+                  accordions.map((accordion) => (
+                    <MeasurementAccordian
+                      key={accordion.key}
+                      isOpen={accordion.isOpen}
+                      toggleAccordion={() => toggleAccordion(accordion.key)}
+                      name={accordion.name}
+                      measurements={accordion.measurements}
+                    />
+                  ))}
+              </div>
+            </div>
+          </Modal>
           <button className="myBtn radius ">Update</button>
-          <button className="myBtn radius ">Delete</button>
+          <button className="delete deleteBtn radius ">Delete</button>
         </div>
 
         {/* Personal Info */}

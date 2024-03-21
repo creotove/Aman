@@ -114,26 +114,26 @@ const Employees = () => {
             <div>
               <div className="grid lg:grid-cols-2 gap-4">
                 {/* <div className="headerText flex justify-center items-center radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot cursor-pointer  smallContainer">
-                  <h1 classname="">Give Money</h1>
+                  <h1 className="">Give Money</h1>
                 </div> */}
                 <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot  smallContainer">
-                  <h1 classname="">Salary Remaining to give</h1>
+                  <h1 className="">Salary Remaining to give</h1>
                 </div>
               </div>
               <div className=" grid lg:grid-cols-2 gap-4 mt-4">
                 {/* <div className="headerText flex justify-center items-center radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot  cursor-pointer smallContainer">
-                  <h1 classname="">Add work</h1>
+                  <h1 className="">Add work</h1>
                 </div> */}
                 <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot  smallContainer">
-                  <h1 classname="">Total advance salary given</h1>
+                  <h1 className="">Total advance salary given</h1>
                 </div>
               </div>
               <div className=" grid lg:grid-cols-2 gap-4 mt-4">
                 {/* <div className="headerText flex justify-center items-center radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot cursor-pointer  smallContainer">
-                  <h1 classname="">Give Advance</h1>
+                  <h1 className="">Give Advance</h1>
                 </div> */}
                 <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot  smallContainer">
-                  <h1 classname="">Salary this month</h1>
+                  <h1 className="">Salary this month</h1>
                 </div>
               </div>
             </div>

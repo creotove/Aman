@@ -1,13 +1,17 @@
 import React from "react";
 
-const Modal = ({ closeModal, title, children }) => {
+const Modal = ({ modalState, setModalState, title, children }) => {
   return (
     <div
-      className=" fixed inset-0 z-50 flex items-center  justify-center bg-neutral-950 bg-opacity-80"
+      className={`${
+        modalState
+          ? "fixed inset-0 z-50 flex items-center  justify-center bg-neutral-950 bg-opacity-80"
+          : "hidden"
+      } `}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        closeModal();
+        setModalState(false);
       }}
     >
       <div
@@ -20,7 +24,9 @@ const Modal = ({ closeModal, title, children }) => {
         <div className="flex justify-between">
           <h3 className="headerText">{title}</h3>
           <button
-            onClick={closeModal}
+            onClick={() => {
+              setModalState(false);
+            }}
             className="hover:bg-neutral-300 m-0 p-0 text-black text-3xl w-10 h-10 flex justify-center items-center bg-white rounded-full"
           >
             &times;
@@ -28,7 +34,14 @@ const Modal = ({ closeModal, title, children }) => {
         </div>
         <div className="smallContainer">{children}</div>
         <div className="flex justify-end items-end">
-          <button className="inputBox text-white" onClick={closeModal}>Close</button>
+          <button
+            className="inputBox deleteBtn text-white flex justify-center items-center"
+            onClick={() => {
+              setModalState(false);
+            }}
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>

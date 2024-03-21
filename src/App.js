@@ -13,6 +13,8 @@ import Profile from "./Pages/Profile";
 import ClothingMgmt from "./Pages/ClothingMgmt";
 import EmployeeProfile from "./Pages/EmployeeProfile";
 import CustomerProfile from "./Pages/CustomerProfile";
+import StitchBill from "./Pages/StitchBill";
+import SoldBill from "./Pages/SoldBill";
 
 // "proxy": "http://localhost:8080/",
 
@@ -26,6 +28,8 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               {/* The index route for the Dashboard */}
               <Route path="/customers" element={<Customers />} />
+              <Route path="/customers/sold-bill" element={<SoldBill />} />
+              <Route path="/customers/stitch-bill" element={<StitchBill />} />
               <Route path="/employees" element={<Employees />} />
               <Route path="/gaaj-button" element={<GaajBtn />} />
               <Route path="/profile" element={<Profile />} />
