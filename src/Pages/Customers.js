@@ -22,7 +22,7 @@ const Customers = () => {
   } = useToast();
   const { phoneNumber, setPhoneNumber, searchState, setSearchState } =
     useSearchBar();
-  const handleSearch = async(e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     if (!phoneNumber) {
@@ -32,12 +32,13 @@ const Customers = () => {
       return;
     }
     try {
-      const res = await axios.get(`/customer?phoneNumber=${phoneNumber}&name=${phoneNumber}`);
-      if(res.data.success){
+      const res = await axios.get(
+        `/customer?phoneNumber=${phoneNumber}&name=${phoneNumber}`
+      );
+      if (res.data.success) {
         setSearchState(true);
         setCustomer(res.data.data);
       }
-      
     } catch (error) {
       setShowToast(true);
       setToastMsg("Customer not found!");
@@ -91,7 +92,15 @@ const Customers = () => {
         handleSearch={handleSearch}
       />
       {/* searched result slot */}
-      {searchState && customer ? <SearchedCustomer userId={customer._id} customerId={customer.customer_id} avatar={customer.avatar} name={customer.name} phoneNumber={customer.phoneNumber} /> : null}
+      {searchState && customer ? (
+        <SearchedCustomer
+          userId={customer._id}
+          customerId={customer.customer_id}
+          avatar={customer.avatar}
+          name={customer.name}
+          phoneNumber={customer.phoneNumber}
+        />
+      ) : null}
       <div className="grid md:grid-cols-12 gap-4 mt-5">
         <div className="md:col-span-4  radius slot min-h-screen shadow-sm smallContainer">
           <h1 className="headerText">
@@ -103,17 +112,21 @@ const Customers = () => {
           {stitchCustomerList?.data &&
           stitchCustomerList?.data.length > 0 &&
           !stitchCustomerListLoading &&
-          !stitchCustomerListError
-            ? stitchCustomerList?.data?.map((stitchCustomer, index) => (
-                <CustomerList
-                  key={index}
-                  name={stitchCustomer.name}
-                  phoneNumber={stitchCustomer.phoneNumber}
-                  avatar={stitchCustomer.avatar}
-                  customerId={stitchCustomer.customer_id}
-                />
-              ))
-            : null}
+          !stitchCustomerListError ? (
+            stitchCustomerList?.data?.map((stitchCustomer, index) => (
+              <CustomerList
+                key={index}
+                name={stitchCustomer.name}
+                phoneNumber={stitchCustomer.phoneNumber}
+                avatar={stitchCustomer.avatar}
+                customerId={stitchCustomer.customer_id}
+              />
+            ))
+          ) : (
+            <div className="flex justify-center items-center h-full">
+              <p className="text-[#FC3447]">No Customer's found</p>
+            </div>
+          )}
         </div>
         <div className="md:col-span-4  radius slot min-h-screen shadow-sm smallContainer">
           <h1 className="headerText mb-3">
@@ -125,17 +138,21 @@ const Customers = () => {
           {soldCustomerList?.data &&
           soldCustomerList?.data.length > 0 &&
           !soldCustomerListLoading &&
-          !soldCustomerListError
-            ? soldCustomerList?.data?.map((soldCustomer) => (
-                <CustomerList
-                  key={soldCustomer._id}
-                  name={soldCustomer.name}
-                  phoneNumber={soldCustomer.phoneNumber}
-                  avatar={soldCustomer.avatar}
-                  customerId={soldCustomer.customer_id}
-                />
-              ))
-            : null}
+          !soldCustomerListError ? (
+            soldCustomerList?.data?.map((soldCustomer) => (
+              <CustomerList
+                key={soldCustomer._id}
+                name={soldCustomer.name}
+                phoneNumber={soldCustomer.phoneNumber}
+                avatar={soldCustomer.avatar}
+                customerId={soldCustomer.customer_id}
+              />
+            ))
+          ) : (
+            <div className="flex justify-center items-center h-full">
+              <p className="text-[#FC3447]">No Customer's found</p>
+            </div>
+          )}
         </div>
       </div>
     </section>

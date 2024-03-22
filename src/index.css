@@ -56,18 +56,22 @@
   padding: 0.5rem;
   padding-left: 1rem;
 }
-.delete{
+
+.delete {
   background-color: #FC3447;
   border: 2px solid #FF7683;
 }
-.delete:hover{
+
+.delete:hover {
   background-color: #ff283e;
 }
-.deleteBtn{
+
+.deleteBtn {
   padding: 0.5rem 1.75rem;
   border-radius: 0.9rem;
   cursor: pointer;
 }
+
 .inputBox:hover {
   background-color: #070707;
   border-radius: 0.9rem;
@@ -111,6 +115,16 @@ input[type=number]::-webkit-outer-spin-button {
   color: #fff;
 }
 
+.myLink {
+  color: #fff;
+  text-decoration: none;
+}
+
+.myLink:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
 .smallContainer {
   padding-inline: 1rem;
   padding-block: 1rem;
@@ -142,6 +156,17 @@ label {
   color: #fff;
   padding: 0rem .7rem;
   background-color: #1b1b1b;
+}
+
+.dropFiles {
+  margin-top: 2rem;
+  background: white;
+  padding: 5rem;
+  border-radius: 15;
+  border-style: dashed;
+  border-width: 1;
+  display: flex;
+  align-items: center;
 }
 
 @layer utilities {

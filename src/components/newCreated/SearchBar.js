@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ChooseBill from "./ChooseBill";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({
   placeHolderText,
@@ -9,6 +10,7 @@ const SearchBar = ({
   buttonText,
 }) => {
   const [modalState, setModalState] = useState(false);
+  const navigate = useNavigate();
   return (
     <div
       className="flex justify-between"
@@ -62,15 +64,24 @@ const SearchBar = ({
           </button>
         </div>
         <div className="order-1 text-end w-full md:w-max md:order-2">
-          <button
-            onClick={() => {
-              setModalState(true);
-            }}
-            className="myBtn radius"
-          >
-            {buttonText}
-          </button>
-          {buttonText === 'Customer mgmt.' ?  modalState && <ChooseBill modalState={modalState} setModalState={setModalState} /> : ''}
+          {buttonText && (
+            <button
+              onClick={() => {
+                setModalState(true);
+              }}
+              className="myBtn radius"
+            >
+              {buttonText}
+            </button>
+          )}
+          {buttonText === "Customer mgmt."
+            ? modalState && (
+                <ChooseBill
+                  modalState={modalState}
+                  setModalState={setModalState}
+                />
+              )
+            : null}
         </div>
       </div>
     </div>

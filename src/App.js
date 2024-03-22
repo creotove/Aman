@@ -12,6 +12,7 @@ import GaajBtn from "./Pages/GaajBtn";
 import Profile from "./Pages/Profile";
 import ClothingMgmt from "./Pages/ClothingMgmt";
 import EmployeeProfile from "./Pages/EmployeeProfile";
+import NewEmployee from "./Pages/NewEmployee.js";
 import CustomerProfile from "./Pages/CustomerProfile";
 import StitchBill from "./Pages/StitchBill";
 import SoldBill from "./Pages/SoldBill";
@@ -31,6 +32,7 @@ function App() {
               <Route path="/customers/sold-bill" element={<SoldBill />} />
               <Route path="/customers/stitch-bill" element={<StitchBill />} />
               <Route path="/employees" element={<Employees />} />
+              <Route path="/employees/new-employee" element={<NewEmployee />} />
               <Route path="/gaaj-button" element={<GaajBtn />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/clothing-mgmt" element={<ClothingMgmt />} />

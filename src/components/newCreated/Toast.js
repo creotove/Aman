@@ -2,7 +2,9 @@ function Toast({ message, type, onClose }) {
   return (
     <div
       id="toastAnim"
-      class={`animate-left-to-right flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 ${type === 'success'? 'bg-green-500' : 'bg-red-500'} rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 absolute top-5 right-5`}
+      class={`animate-left-to-right flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 ${
+        type === "success" ? "bg-green-500" : "bg-red-500"
+      } rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 absolute top-5 right-5`}
       role="alert"
     >
       {type === "success" && (
@@ -22,7 +24,6 @@ function Toast({ message, type, onClose }) {
           </svg>
           <span class="sr-only">Success icon</span> */}
           <p>&#10003;</p>
-
         </div>
       )}
       {type === "error" && (
@@ -39,7 +40,13 @@ function Toast({ message, type, onClose }) {
           <span class="sr-only">Error icon</span>
         </div>
       )}
-      <div class="ms-3 text-sm text-black font-normal">{message}</div>
+      <div
+        className={`ms-3 text-sm ${
+          type === "error" ? "text-white" : "text-black"
+        } font-semibold`}
+      >
+        {message}
+      </div>
       <button
         type="button"
         // class="ms-auto -mx-1.5 -my-1.5 bg-black text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-700 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"

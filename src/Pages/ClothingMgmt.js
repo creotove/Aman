@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Accordion from "../components/newCreated/Accordian";
 import Pill from "../components/newCreated/Pill";
 import axios from "../apis/admin";
-import useAxios from "../hooks/useAxios";
 import useToast from "../hooks/useToast";
 import Toast from "../components/newCreated/Toast";
 
@@ -21,6 +20,8 @@ const ClothingMgmt = () => {
   };
   const [measurementNames, setMeasurementNames] = useState([]);
   const [measurementName, setMeasurementName] = useState("");
+  const [editMode, setEditMode] = useState(false);
+  const [editId, setEditId] = useState("");
   const measurementRef = React.useRef();
   // add measurement name
   const handleAdd = () => {
@@ -60,7 +61,12 @@ const ClothingMgmt = () => {
         cuttingAmt,
         measurements: measurementNames,
       };
-      const res = await axios.post("/addClothingItem", data);
+      let res;
+      if (editMode) {
+        res = await axios.patch(`/clothingItem/${editId}`, data);
+      } else {
+        res = await axios.post("/addClothingItem", data);
+      }
       if (res.data.success) {
         setShowToast(true);
         setToastMsg(res.data?.message);
@@ -136,6 +142,8 @@ const ClothingMgmt = () => {
   };
   // get data to edit in the form
   const handleEdit = (i) => {
+    setEditMode(true);
+    setEditId(accordions[i].id);
     setName(accordions[i].name);
     setStitchingAmtCustomer(accordions[i].stitchingAmtCustomer);
     setStitchingAmtTailor(accordions[i].stitchingAmtTailor);
@@ -145,28 +153,6 @@ const ClothingMgmt = () => {
   useEffect(() => {
     getClotingItems();
   }, []);
-  // useEffect(() => {
-  //   const newAccordions =
-  //     clothingItems &&
-  //     clothingItems.map((item, i) => {
-  //       return {
-  //         id: item._id,
-  //         key: i + 1,
-  //         name: item.name,
-  //         measurements: item.measurements,
-  //         stitchingAmtCustomer: item.stitchingAmtCustomer,
-  //         stitchingAmtTailor: item.stitchingAmtTailor,
-  //         cuttingAmt: item.cuttingAmt,
-  //         isOpen: false,
-  //       };
-  //     });
-  //   setAccordion(newAccordions);
-  //   if (error) {
-  //     setShowToast(true);
-  //     setToastMsg(error);
-  //     setToastType("error");
-  //   }
-  // }, [clothingItems, error]);
   return (
     <>
       {showToast && (

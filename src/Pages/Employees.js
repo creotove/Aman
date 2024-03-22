@@ -7,6 +7,7 @@ import useAxios from "../hooks/useAxios";
 import useSearchBar from "../hooks/useSearchBar";
 import SearchedCustomer from "../components/newCreated/SearchedCustomer";
 import axios from "../apis/admin";
+import { NavLink } from "react-router-dom";
 
 const Employees = () => {
   const [employeeList, employeeListError, employeeListLoading] = useAxios({
@@ -54,7 +55,7 @@ const Employees = () => {
     employeeListError && setShowToast(true);
     employeeListError && setToastMsg(employeeListError);
     employeeListError && setToastType("error");
-  });
+  }, [employeeListError]);
   return (
     <section
       onClick={(e) => {
@@ -86,20 +87,20 @@ const Employees = () => {
       {/* searched result slot */}
       {searchState ? <SearchedCustomer /> : null}
 
-      <div className="grid grid-cols-12 gap-4 mt-5 ">
-        <div className="slot col-span-12 md:col-span-5 radius  max-h-[32rem] no-scrollbar overflow-y-auto min-h-[30rem] smallContainer">
-          <div className="radius  flex justify-end ">
+      <div className="grid md:grid-cols-12 gap-4 mt-5 ">
+        <div className="slot md:col-span-5 radiusmax-h-[32rem] no-scrollbar overflow-y-auto min-h-[30rem] smallContainer">
+          <div className="radiusflex justify-end ">
             <select className="myBtn">
               <option value="all">All</option>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
           </div>
-          <h1 className="headerText mb-3 ">Employee List</h1>
+          <h3 className="headerText mb-3 ">Employee List</h3>
           {employeeListLoading
             ? "Loading"
             : employeeList &&
-              employeeList.map((employee) => 
+              employeeList.map((employee) => (
                 <EmployeeList
                   name={employee.name}
                   role={employee.role}
@@ -107,36 +108,25 @@ const Employees = () => {
                   key={employee._id}
                   _id={employee._id}
                 />
-              )}
+              ))}
         </div>
-        <div className="col-span-12 md:col-span-7 min-h-[30rem]">
-          <div className="text-white">
-            <div>
-              <div className="grid lg:grid-cols-2 gap-4">
-                {/* <div className="headerText flex justify-center items-center radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot cursor-pointer  smallContainer">
-                  <h1 className="">Give Money</h1>
-                </div> */}
-                <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot  smallContainer">
-                  <h1 className="">Salary Remaining to give</h1>
-                </div>
-              </div>
-              <div className=" grid lg:grid-cols-2 gap-4 mt-4">
-                {/* <div className="headerText flex justify-center items-center radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot  cursor-pointer smallContainer">
-                  <h1 className="">Add work</h1>
-                </div> */}
-                <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot  smallContainer">
-                  <h1 className="">Total advance salary given</h1>
-                </div>
-              </div>
-              <div className=" grid lg:grid-cols-2 gap-4 mt-4">
-                {/* <div className="headerText flex justify-center items-center radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot cursor-pointer  smallContainer">
-                  <h1 className="">Give Advance</h1>
-                </div> */}
-                <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot  smallContainer">
-                  <h1 className="">Salary this month</h1>
-                </div>
-              </div>
-            </div>
+        <div className="md:col-span-4 gap-4 flex flex-col min-h-[30rem]">
+          <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot smallContainer">
+            <h3 className="">Salary Remaining to give</h3>
+          </div>
+          <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot smallContainer">
+            <h3 className="">Total advance salary given</h3>
+          </div>
+          <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot smallContainer">
+            <h3 className="">Salary this month</h3>
+          </div>
+        </div>{" "}
+        <div className="md:col-span-3 min-h-[30rem] slot smallContainer radius">
+          <h3 className="text-[#FC3447]">*Important Links</h3>
+          <div className="flex flex-col gap-4 mt-2">
+            <NavLink className="myLink" to="new-employee">
+              New Employee
+            </NavLink>
           </div>
         </div>
       </div>
