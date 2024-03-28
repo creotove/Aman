@@ -16,6 +16,10 @@ import NewEmployee from "./Pages/NewEmployee.js";
 import CustomerProfile from "./Pages/CustomerProfile";
 import StitchBill from "./Pages/StitchBill";
 import SoldBill from "./Pages/SoldBill";
+import AddWork from "./Pages/AddWork";
+import GiveMoney from "./Pages/GiveMoney";
+import AdvanceMoney from "./Pages/AdvanceMoney";
+import EditEmployeeProfile from "./Pages/EditEmployeeProfile.js";
 
 // "proxy": "http://localhost:8080/",
 
@@ -33,6 +37,10 @@ function App() {
               <Route path="/customers/stitch-bill" element={<StitchBill />} />
               <Route path="/employees" element={<Employees />} />
               <Route path="/employees/new-employee" element={<NewEmployee />} />
+              <Route path="/employees/add-work/:id" element={<AddWork />} />
+              <Route path="/employees/give-money/:id" element={<GiveMoney />} />
+              <Route path="/employees/advance/:id" element={<AdvanceMoney />} />
+              <Route path="/employees/edit/:id" element={<EditEmployeeProfile />} />
               <Route path="/gaaj-button" element={<GaajBtn />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/clothing-mgmt" element={<ClothingMgmt />} />

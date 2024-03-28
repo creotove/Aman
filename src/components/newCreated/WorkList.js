@@ -33,15 +33,15 @@ const WorkList = ({ id, date, earned, index }) => {
         </Modal>
       )}
       <tr className="">
-        <td className="px-6 py-1">{index + 1}</td>
-        <td className="px-6 py-1 whitespace-nowrap">{DateFormatter(date)}</td>
-        <td className="px-6 py-1">{earned}</td>
-        <td className="px-6 py-1">
+        <td className="px-6 py-1 text-center">{index + 1}</td>
+        <td className="px-6 py-1 text-center whitespace-nowrap">{DateFormatter(date)}</td>
+        <td className="px-6 py-1 text-center">{earned}</td>
+        <td className="px-6 py-1 text-center">
           <button
             onClick={() => {
               openModal();
             }}
-            className="inputBox px-3 py-1 radius"
+            className="myBtn"
           >
             View
           </button>

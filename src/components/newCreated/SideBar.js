@@ -100,8 +100,8 @@ const SideBar = () => {
           <span className="text-3xl h-11 w-full flex justify-center">
             <img
               src={logo}
-              className="object-contain hidden md:block"
-              alt="spell growth"
+              className="object-contain "
+              alt="aman-tailors"
             />
           </span>
           <section className="my-6">

@@ -1,25 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import EmployeeList from "../components/newCreated/EmployeeList";
 import SearchBar from "../components/newCreated/SearchBar";
 import Toast from "../components/newCreated/Toast";
 import useToast from "../hooks/useToast";
-import useAxios from "../hooks/useAxios";
 import useSearchBar from "../hooks/useSearchBar";
 import SearchedCustomer from "../components/newCreated/SearchedCustomer";
 import axios from "../apis/admin";
 import { NavLink } from "react-router-dom";
 
 const Employees = () => {
-  const [employeeList, employeeListError, employeeListLoading] = useAxios({
-    axiosInstance: axios,
-    method: "GET",
-    url: "/employees",
-    requestConfig: {
-      headers: {
-        "Content-Language": "en-US",
-      },
-    },
-  });
+  const [employeeList, setEmployeeList] = useState([]);
+  const [employeeListLoading, setEmployeeListLoading] = useState(true);
+
+  const getEmployeeList = async () => {
+    try {
+      const res = await axios.get("/employees");
+      if (res.data.success) {
+        setEmployeeList(res.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching employees", error);
+      setShowToast(true);
+      setToastMsg("Error fetching employees");
+      setToastType("error");
+    } finally {
+      setEmployeeListLoading(false);
+    }
+  };
   const {
     showToast,
     setShowToast,
@@ -52,10 +59,8 @@ const Employees = () => {
     return;
   };
   useEffect(() => {
-    employeeListError && setShowToast(true);
-    employeeListError && setToastMsg(employeeListError);
-    employeeListError && setToastType("error");
-  }, [employeeListError]);
+    getEmployeeList();
+  }, []);
   return (
     <section
       onClick={(e) => {
@@ -79,7 +84,7 @@ const Employees = () => {
       {/* search bar */}
       <SearchBar
         placeHolderText={"Enter mobile number"}
-        buttonText={"Employee mgmt."}
+        buttonText={""}
         phoneNumber={phoneNumber}
         setPhoneNumber={setPhoneNumber}
         handleSearch={handleSearch}
@@ -88,14 +93,7 @@ const Employees = () => {
       {searchState ? <SearchedCustomer /> : null}
 
       <div className="grid md:grid-cols-12 gap-4 mt-5 ">
-        <div className="slot md:col-span-5 radiusmax-h-[32rem] no-scrollbar overflow-y-auto min-h-[30rem] smallContainer">
-          <div className="radiusflex justify-end ">
-            <select className="myBtn">
-              <option value="all">All</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
-          </div>
+        <div className="slot md:col-span-5 radiusmax-h-[32rem] no-scrollbar overflow-y-auto min-h-[30rem] smallContainer radius">
           <h3 className="headerText mb-3 ">Employee List</h3>
           {employeeListLoading
             ? "Loading"
@@ -110,7 +108,7 @@ const Employees = () => {
                 />
               ))}
         </div>
-        <div className="md:col-span-4 gap-4 flex flex-col min-h-[30rem]">
+        {/* <div className="md:col-span-4 gap-4 flex flex-col min-h-[30rem]">
           <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot smallContainer">
             <h3 className="">Salary Remaining to give</h3>
           </div>
@@ -120,7 +118,7 @@ const Employees = () => {
           <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot smallContainer">
             <h3 className="">Salary this month</h3>
           </div>
-        </div>{" "}
+        </div>*/}
         <div className="md:col-span-3 min-h-[30rem] slot smallContainer radius">
           <h3 className="text-[#FC3447]">*Important Links</h3>
           <div className="flex flex-col gap-4 mt-2">

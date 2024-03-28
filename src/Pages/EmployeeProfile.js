@@ -4,28 +4,80 @@ import MoneyGivenList from "../components/newCreated/MoneyGivenList";
 import FormatNumber from "../components/newCreated/FormatNumber";
 import useAxios from "../hooks/useAxios";
 import axios from "../apis/admin";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const EmployeeProfile = () => {
   const { id } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const [employeeProfile, employeeProfileError, employeeProfileLoading] =
     useAxios({
       axiosInstance: axios,
       method: "GET",
-      url: `/employee/${id}?role=${location.state}`,
+      url: `/employee/${id}?role=${location.state}&limit=${10}`,
       requestConfig: {
         headers: {
           "Content-Language": "en-US",
         },
       },
     });
+
   return (
     <section className="text-white relative">
       {/* Actions */}
       <div className="flex flex-col md:flex-row justify-end gap-4">
-        <button className="myBtn radius ">Add work</button>
-        <button className="myBtn radius ">Give Money</button>
+        {/* Add Work Btn */}
+        <button
+          className="myBtn radius"
+          onClick={() =>
+            navigate(`/employees/add-work/${employeeProfile._id}`, {
+              state: {
+                employeeProfile,
+              },
+            })
+          }
+        >
+          Add work
+        </button>
+        {/* Give Money Btn */}
+        <button
+          onClick={() =>
+            navigate(`/employees/give-money/${employeeProfile._id}`, {
+              state: {
+                employeeProfile,
+              },
+            })
+          }
+          className="myBtn radius "
+        >
+          Give Money
+        </button>
+        {/* Advance Money Mgmt. Btn */}
+        <button
+          onClick={() =>
+            navigate(`/employees/advance/${employeeProfile._id}`, {
+              state: {
+                employeeProfile,
+              },
+            })
+          }
+          className="myBtn radius"
+        >
+          Advance Money Mgmt.
+        </button>
+        {/* Edit Profile Btn */}
+        <button
+          onClick={() =>
+            navigate(`/employees/edit/${employeeProfile._id}`, {
+              state: {
+                employeeProfile,
+              },
+            })
+          }
+          className="myBtn radius"
+        >
+          Edit Profile
+        </button>
       </div>
 
       {/* Personal Info */}
@@ -40,8 +92,8 @@ const EmployeeProfile = () => {
             <div className="">
               <h6 className="headerText">{employeeProfile?.name}</h6>
             </div>
-            <div className="">
-              <h6 className="headerText">{employeeProfile?.phoneNumber}</h6>
+            <div className="headerText">
+              <h6 className=" subText">{employeeProfile?.phoneNumber}</h6>
             </div>
           </div>
         </div>
@@ -69,6 +121,8 @@ const EmployeeProfile = () => {
             <p className="slotNumbers text-5xl">
               {employeeProfile?.employeeDetails?.earned &&
                 FormatNumber(employeeProfile?.employeeDetails?.earned)}
+                {employeeProfile?.employeeDetails?.monthly &&
+                FormatNumber(employeeProfile?.employeeDetails?.monthly)}
             </p>
           </div>
         </div>
@@ -90,16 +144,16 @@ const EmployeeProfile = () => {
             <table className="w-full text-sm text-left rtl:text-right ">
               <thead className="text-xs inputBox subText uppercase">
                 <tr className="">
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-6 py-3 text-center">
                     #
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-6 py-3 text-center">
                     Date
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-6 py-3 text-center">
                     Earned
                   </th>
-                  <th scope="col" className="px-6 py-3">
+                  <th scope="col" className="px-6 py-3 text-center">
                     Action
                   </th>
                 </tr>
