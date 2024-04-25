@@ -2,7 +2,7 @@ function Toast({ message, type, onClose }) {
   return (
     <div
       id="toastAnim"
-      class={`animate-left-to-right flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 ${
+      className={`animate-left-to-right flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 z-50 ${
         type === "success" ? "bg-green-500" : "bg-red-500"
       } rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 absolute top-5 right-5`}
       role="alert"

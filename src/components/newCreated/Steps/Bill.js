@@ -132,6 +132,7 @@ const Bill = () => {
             <input
               type="number"
               value={advanceAmt}
+              onFocus={(e) => e.target.select()}
               onChange={(e) => setAdvanceAmt(parseInt(e.target.value))}
               className="inputBox w-48 md:w-60 me-auto md:me-0 "
               placeholder="Advance Amt."

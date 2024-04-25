@@ -35,7 +35,7 @@ const Modal = ({ modalState, setModalState, title, children }) => {
         <div className="smallContainer">{children}</div>
         <div className="flex justify-end items-end">
           <button
-            className="inputBox deleteBtn text-white flex justify-center items-center"
+            className="myBtn text-white flex justify-center items-center"
             onClick={() => {
               setModalState(false);
             }}

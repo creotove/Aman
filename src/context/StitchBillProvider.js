@@ -4,8 +4,8 @@ const StitchBillContext = createContext({});
 
 export const StitchBillProvider = ({ children }) => {
   const [customerId, setCustomerId] = useState("");
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [name, setName] = useState("Altamas");
+  const [phoneNumber, setPhoneNumber] = useState(9265704645);
   const [deliveryDate, setDeliveryDate] = useState(new Date());
   const [takeMeasurementsOf, setTakeMeasurementsOf] = useState([]);
   const [measurements, setMeasurements] = useState([]);

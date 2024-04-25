@@ -3,11 +3,13 @@ import homeIconHollow from "../../assets/icons/hollow-homeIcon.svg";
 import peopleIconHollow from "../../assets/icons/hollow-peopleIcon.svg";
 import sewingIconHollow from "../../assets/icons/hollow-sewingMachineIcon.svg";
 import fabricIconHollow from "../../assets/icons/hollow-fabricIcon.svg";
+import storeIconHollow from "../../assets/icons/hollow-storeIcon.svg";
 import profileIconHollow from "../../assets/icons/hollow-userIcon.svg";
 import homeIconFilled from "../../assets/icons/fill-homeIcon.svg";
 import peopleIconFilled from "../../assets/icons/fill-peopleIcon.svg";
 import sewingIconFilled from "../../assets/icons/fill-sewingMachineIcon.svg";
 import fabricIconFilled from "../../assets/icons/fill-fabricIcon.svg";
+import storeIconFilled from "../../assets/icons/fill-storeIcon.svg";
 import profileIconFilled from "../../assets/icons/fill-userIcon.svg";
 
 import logo from "../../assets/logos/logo-v-white.png";
@@ -32,25 +34,32 @@ const SideBar = () => {
       id: 2,
       fillIcon: peopleIconFilled,
       hollowIcon: peopleIconHollow,
-      // text: "Sold Bill",
+      // text: "Customers",
       to: "/customers",
     },
     {
       id: 3,
       fillIcon: sewingIconFilled,
       hollowIcon: sewingIconHollow,
-      // text: "Stitch Bill",
+      // text: "Employees",
       to: "/employees",
     },
     {
       id: 4,
       fillIcon: fabricIconFilled,
       hollowIcon: fabricIconHollow,
-      // text: "Stitch Bill",
+      // text: "Clothing Mgmt",
       to: "/clothing-mgmt",
     },
     {
       id: 5,
+      fillIcon: storeIconFilled,
+      hollowIcon: storeIconHollow,
+      // text: "Stitch Bill",
+      to: "/store",
+    },
+    {
+      id: 6,
       fillIcon: profileIconFilled,
       hollowIcon: profileIconHollow,
       // text: "Profile",

@@ -74,8 +74,9 @@
 
 .inputBox:hover {
   background-color: #070707;
-  border-radius: 0.9rem;
-  /* padding: 0.5rem; */
+  background: linear-gradient(180deg,#1e1e1e,#121212);
+  border: 2px solid #525252;
+
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -92,7 +93,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .slot:hover {
-  background-color: #131313;
+  background: linear-gradient(180deg,#1e1e1e,#121212);
 }
 
 
@@ -102,7 +103,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .myBtn {
-  background: #000;
+  background: linear-gradient(180deg,#1e1e1e,#121212);
   color: #d9d9d9;
   border: 2px solid #1b1b1b;
   padding: 0.5rem 1.75rem;
@@ -111,6 +112,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .myBtn:hover {
+  border: 2px solid #1b1b1b;
   background: #131313;
   color: #fff;
 }
@@ -140,6 +142,11 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 0.9rem;
   color: #8A8A8A;
 }
+.nav_item.active {
+  background: #131313;
+  color: #fff;
+  border: 0.5px solid #1b1b1b;
+}
 
 label {
   color: #fff;
@@ -155,7 +162,7 @@ label {
 .pill {
   color: #fff;
   padding: 0rem .7rem;
-  background-color: #1b1b1b;
+  background: linear-gradient(180deg,#1e1e1e,#121212);
 }
 
 .dropFiles {

@@ -48,7 +48,7 @@ const Stepper = () => {
                 idx + 1
               )}
             </div>
-            <div className="step-name">{step.name}</div>
+            <div className="step-name whitespace-nowrap">{step.name}</div>
           </div>
         ))}
         <div

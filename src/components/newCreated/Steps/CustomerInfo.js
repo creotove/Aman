@@ -89,6 +89,8 @@ const CustomerInfo = () => {
                       onChange={handleMeasurementTake}
                       type="checkbox"
                       className="me-3"
+                      id={item.name}
+                      name={item.name}
                       checked={takeMeasurementsOf.includes(item.name)}
                       value={item.name}
                     />

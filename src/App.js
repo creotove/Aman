@@ -20,6 +20,7 @@ import AddWork from "./Pages/AddWork";
 import GiveMoney from "./Pages/GiveMoney";
 import AdvanceMoney from "./Pages/AdvanceMoney";
 import EditEmployeeProfile from "./Pages/EditEmployeeProfile.js";
+import Store from "./Pages/Store.js";
 
 // "proxy": "http://localhost:8080/",
 
@@ -44,6 +45,7 @@ function App() {
               <Route path="/gaaj-button" element={<GaajBtn />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/clothing-mgmt" element={<ClothingMgmt />} />
+              <Route path="/store" element={<Store />} />
               <Route path="/employees/:id" element={<EmployeeProfile />} />
               <Route path="/customers/:id" element={<CustomerProfile />} />
             </Route>
