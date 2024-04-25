@@ -3,11 +3,12 @@ import Modal from "../components/newCreated/Modal";
 import useToast from "../hooks/useToast";
 import Toast from "../components/newCreated/Toast";
 import { useNavigate } from "react-router-dom";
+import axios from "../apis/admin";
 
 const Profile = () => {
   const [password, setPassword] = useState("");
   const [modalState, setModalState] = useState(false);
-  const [securityCode, setSecurityCode] = useState("");
+  const [otp, setOTP] = useState("");
   const navigate = useNavigate();
   const {
     showToast,
@@ -18,23 +19,55 @@ const Profile = () => {
     toastType,
   } = useToast();
 
-  const validateSecurityCode = (securityCode) => {
-    if (securityCode === "1234") {
+  const validateOTP = async (otp) => {
+    try {
+      if (otp === "") {
+        setShowToast(true);
+        setToastMsg("Please enter security code");
+        setToastType("error");
+        return;
+      } else {
+        const res = await axios.post("/validateOTP", { otp, password });
+        if (res.data.success) {
+          setShowToast(true);
+          setToastMsg("Password changed successfully");
+          setToastType("success");
+          setModalState(false);
+          setPassword("");
+          setOTP("");
+        } else {
+          setShowToast(true);
+          setToastMsg("Invalid OTP");
+          setToastType("error");
+        }
+      }
+    } catch (error) {
+      console.log(error);
       setShowToast(true);
-      setToastMsg("Password Changed Successfully");
-      setToastType("success");
-      setPassword("");      
-      setModalState(false);
-    } else {
-      setShowToast(true);
-      setToastMsg("Invalid Security Code");
+      setToastMsg(error?.response?.data?.message || error?.message);
       setToastType("error");
-      setSecurityCode("");
     }
   };
+  const sendOtptoEmail = async () => {
+    try {
+      const res = await axios.post("/sendOTP");
+      if (res.data.success) {
+        setShowToast(true);
+        setToastMsg("OTP sent successfully");
+        setToastType("success");
+        setModalState(true);
+      }
+    } catch (error) {
+      console.log(error);
+      setShowToast(true);
+      setToastMsg(error?.response?.data?.message || error?.message);
+      setToastType("error");
+    }
+  };
+
   return (
     <section>
-     {showToast && (
+      {showToast && (
         <Toast
           message={toastMsg}
           type={toastType}
@@ -51,49 +84,62 @@ const Profile = () => {
           modalState={modalState}
           setModalState={setModalState}
         >
-          <div className="flex justify-center items-center gap-8">
-          <div className="mt-3 flex gap-4">
-          <input
-            type="text"
-            value={securityCode}
-            onChange={(e) => setSecurityCode(e.target.value)}
-            className="inputBox w-48 md:w-60 me-auto md:me-0"
-            placeholder="New password"
-          />
-          <button
-            className="myBtn"
-            onClick={() => {
-             validateSecurityCode(securityCode);
-            }}
-          >
-            Save
-          </button>
-        </div>
+          <div className="flex justify-center flex-col items-start gap-8">
+            <div className="flex flex-col">
+              <label className="text-white">New Password</label>
+              <input
+                type="text"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="inputBox w-48 md:w-60 me-auto md:me-0"
+                placeholder="New password"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label className="text-white">OTP</label>
+              <input
+                type="text"
+                value={otp}
+                onChange={(e) => setOTP(e.target.value)}
+                className="inputBox w-48 md:w-60 me-auto md:me-0"
+                placeholder="OTP"
+              />
+            </div>
+            <button
+              className="myBtn"
+              onClick={() => {
+                validateOTP(otp);
+              }}
+            >
+              Save
+            </button>
           </div>
         </Modal>
       )}
       <div className="flex flex-wrap gap-4 bg-[#0b0b0b] border border-[#1b1b1b] smallContainer radius">
         {/* Password */}
         <div className="mt-3 flex gap-4">
-          <input
-            type="text"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="inputBox w-48 md:w-60 me-auto md:me-0"
-            placeholder="New password"
-          />
           <button
             className="myBtn"
             onClick={() => {
-              setModalState(true);
+              sendOtptoEmail();
+              // setModalState(true);
             }}
           >
-            Save
+            Change Password
           </button>
         </div>
       </div>
       <div className="flex justify-end mt-5">
-        <button className="delete deleteBtn" onClick={()=>navigate('/login')} >Logout</button>
+        <button
+          className="delete deleteBtn"
+          onClick={() => {
+            localStorage.clear();
+            navigate("/login");
+          }}
+        >
+          Logout
+        </button>
       </div>
     </section>
   );

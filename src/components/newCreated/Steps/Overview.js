@@ -25,21 +25,21 @@ const Overview = () => {
   };
   const printMeasurementsSeparately = async (measurements, qrCodeImages) => {
     // Preload images before printing
-    const preloadImages = Object.values(qrCodeImages).map((src) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = resolve;
-        img.onerror = reject;
-        img.src = src;
-      });
-    });
-
+    
     try {
+      const preloadImages = Object.values(qrCodeImages).map((src) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = src;
+        });
+      });
       // Wait for all images to be preloaded
       await Promise.all(preloadImages);
 
       for (const [key, value] of Object.entries(measurements)) {
-        const printWindow = window.open("", "_blank");
+        const printWindow = window.open(key, "print");
         const printDocument = printWindow.document;
         printDocument.write("<html><head><title>Print</title>");
         printDocument.write('<style type="text/css">');

@@ -21,41 +21,40 @@ import GiveMoney from "./Pages/GiveMoney";
 import AdvanceMoney from "./Pages/AdvanceMoney";
 import EditEmployeeProfile from "./Pages/EditEmployeeProfile.js";
 import Store from "./Pages/Store.js";
-
-// "proxy": "http://localhost:8080/",
+import RequireAuth from "./auth/RequireAuth.js";
 
 function App() {
   return (
-    <div className="dashboard flex">
-      <Router>
-        <Suspense fallback={<div className="text-white">Loading...</div>}>
-          <Routes>
-            <Route path="/" element={<DefaultLayout />}>
-              <Route path="/" element={<Dashboard />} />
-              {/* The index route for the Dashboard */}
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/customers/sold-bill" element={<SoldBill />} />
-              <Route path="/customers/stitch-bill" element={<StitchBill />} />
-              <Route path="/employees" element={<Employees />} />
-              <Route path="/employees/new-employee" element={<NewEmployee />} />
-              <Route path="/employees/add-work/:id" element={<AddWork />} />
-              <Route path="/employees/give-money/:id" element={<GiveMoney />} />
-              <Route path="/employees/advance/:id" element={<AdvanceMoney />} />
-              <Route path="/employees/edit/:id" element={<EditEmployeeProfile />} />
-              <Route path="/gaaj-button" element={<GaajBtn />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/clothing-mgmt" element={<ClothingMgmt />} />
-              <Route path="/store" element={<Store />} />
-              <Route path="/employees/:id" element={<EmployeeProfile />} />
-              <Route path="/customers/:id" element={<CustomerProfile />} />
-            </Route>
-            <Route path="login" element={<Login />} />
-            {/* <Route path="/logout" element={<Logout />} /> */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Suspense>
-      </Router>
-    </div>
+    <Suspense fallback={<section className="h-screen flex justify-center items-center w-screen">
+    <span className="loader" />
+      </section>}>
+    <Routes>
+      <Route path="/" element={<RequireAuth />}>
+        <Route path="" element={<DefaultLayout />}>
+          <Route path="" element={<Dashboard />} />
+          {/* The index route for the Dashboard */}
+          <Route path="/customers" element={<Customers />} />
+          <Route path="/customers/sold-bill" element={<SoldBill />} />
+          <Route path="/customers/stitch-bill" element={<StitchBill />} />
+          <Route path="/employees" element={<Employees />} />
+          <Route path="/employees/new-employee" element={<NewEmployee />} />
+          <Route path="/employees/add-work/:id" element={<AddWork />} />
+          <Route path="/employees/give-money/:id" element={<GiveMoney />} />
+          <Route path="/employees/advance/:id" element={<AdvanceMoney />} />
+          <Route path="/employees/edit/:id" element={<EditEmployeeProfile />} />
+          <Route path="/gaaj-button" element={<GaajBtn />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/clothing-mgmt" element={<ClothingMgmt />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/employees/:id" element={<EmployeeProfile />} />
+          <Route path="/customers/:id" element={<CustomerProfile />} />
+        </Route>
+      </Route>
+      <Route path="login" element={<Login />} />
+      {/* <Route path="/logout" element={<Logout />} /> */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+    </Suspense>
   );
 }
 

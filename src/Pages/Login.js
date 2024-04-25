@@ -1,13 +1,17 @@
-import axios from "axios";
+import axios from "../apis/admin";
 import React from "react";
 import passwordKeyIcon from "../assets/icons/lockIcon.svg";
 import callIcon from "../assets/icons/callIcon.svg";
 import useToast from "../hooks/useToast";
 import Toast from "../components/newCreated/Toast";
+import { useNavigate } from "react-router-dom";
+import Loader from "../components/newCreated/Loader";
 
 const Login = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [phoneNumber, setEmail] = React.useState(9824367931);
+  const [password, setPassword] = React.useState("amanTailors");
+  const [loading, setLoading] = React.useState(false);
+  const navigate = useNavigate();
   const {
     showToast,
     setShowToast,
@@ -19,18 +23,30 @@ const Login = () => {
   const login = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!email || !password) {
+    if (!phoneNumber || !password) {
       setToastMsg("Please fill all the fields!");
       setToastType("error");
       setShowToast(true);
       return;
     }
     try {
-      const res = await axios.post("/login", { email, password });
+      setLoading(true);
+      const res = await axios.post("/login", { phoneNumber, password });
       if (res.data.success) {
+        localStorage.setItem("accessToken", res.data.data.accessToken);
+        localStorage.setItem("refreshToken", res.data.data.refreshToken);
+        setToastMsg("Login successful!");
+        setToastType("success");
+        setShowToast(true);
+        navigate("/");
       }
     } catch (error) {
-      alert("Invalid email or password!");
+      console.log(error?.response?.data?.message || error.message);
+      setToastMsg(error?.response?.data?.message || error.message);
+      setToastType("error");
+      setShowToast(true);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -57,10 +73,10 @@ const Login = () => {
               </span>
               <input
                 type="number"
-                id="email"
+                id="phoneNumber"
                 className="rounded-none rounded-r-lg bg-black border text-white focus:ring-yellow-400 focus:border-yellow-400 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5"
                 placeholder="Phone number"
-                value={email}
+                value={phoneNumber}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -83,7 +99,7 @@ const Login = () => {
             </div>
             <div className="flex justify-end">
               <button type="submit" className="myBtn mt-5">
-                Login
+              Login
               </button>
             </div>
           </form>

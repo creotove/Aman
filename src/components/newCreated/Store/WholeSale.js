@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useToast from "../../../hooks/useToast";
 import axios from "../../../apis/admin";
 import Toast from "../Toast";
@@ -8,6 +8,7 @@ const WholeSale = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [wholeSalers, setWholeSalers] = useState([]);
 
   const {
     showToast,
@@ -18,7 +19,7 @@ const WholeSale = () => {
     toastType,
   } = useToast();
 
-  const handleAddFabric = async (e) => {
+  const handleAddWholeSaler = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     try {
@@ -67,6 +68,22 @@ const WholeSale = () => {
       setShowToast(true);
     }
   };
+
+  const getWholeSalers = async () => {
+    try {
+      const res = await axios.get("/wholeSalers");
+      if (res.data.success) {
+        setWholeSalers(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getWholeSalers();
+  }, []);
+
   return (
     <section className="grid md:grid-cols-12 gap-4">
       {showToast && (
@@ -80,9 +97,7 @@ const WholeSale = () => {
           }} // Close the toast
         />
       )}
-      <div
-        className="bg-[#0b0b0b] border border-[#1b1b1b] smallContainer radius overflow-auto no-scrollbar md:col-span-7"
-      >
+      <div className="bg-[#0b0b0b] border border-[#1b1b1b] smallContainer radius overflow-auto no-scrollbar md:col-span-7">
         <table className="w-full text-sm text-left rtl:text-right ">
           <thead className="text-xs inputBox subText uppercase">
             <tr className="">
@@ -93,19 +108,51 @@ const WholeSale = () => {
                 Name
               </th>
               <th scope="col" className="px-3 py-3 text-center">
-                Image
+                Email
               </th>
               <th scope="col" className="px-3 py-3 text-center">
-                Purchased from
+                Phone
               </th>
               <th scope="col" className="px-3 py-3 text-center">
-                Selling price
+                Address
               </th>
               <th scope="col" className="px-3 py-3 text-center">
-                Mtrs. in stock
+                Action
               </th>
             </tr>
           </thead>
+          <tbody>
+            {wholeSalers && wholeSalers.length > 0 ? (
+              wholeSalers.map((wholeSaler, index) => (
+                <tr key={index} className="border-b border-[#1b1b1b]">
+                  <td className="px-3 py-3 text-center">{index + 1}</td>
+                  <td className="px-3 py-3 text-center">{wholeSaler.name}</td>
+                  <td className="px-3 py-3 text-center">{wholeSaler.email}</td>
+                  <td className="px-3 py-3 text-center">{wholeSaler.phone}</td>
+                  <td className="px-3 py-3 text-center">
+                    {wholeSaler.address.split(" ").map((word, index) => {
+                      if (index > 3) return "...";
+                      return word + " ";
+                    })}
+                  </td>
+                  <td className="px-3 py-3 text-center">
+                    <button
+                      className="text-xs text-white px-2 py-1 radius bg-green-500 me-2
+                  "
+                    >
+                      Add Bill
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="text-center py-3">
+                  No data found
+                </td>
+              </tr>
+            )}
+          </tbody>
         </table>
       </div>
       <div className="bg-[#0b0b0b] border border-[#1b1b1b] h-[80vh] smallContainer radius overflow-auto no-scrollbar md:col-span-5">
@@ -157,7 +204,7 @@ const WholeSale = () => {
             </div>
           </div>
           <div className="flex justify-end">
-            <button onClick={handleAddFabric} className="myBtn">
+            <button onClick={handleAddWholeSaler} className="myBtn">
               Save
             </button>
           </div>
