@@ -4,6 +4,8 @@ import axios from "../apis/admin";
 import FormatSlotNumber from "../components/newCreated/FormatSlotNumber";
 import FormatNumber from "../components/newCreated/FormatNumber";
 import DateFormatter from "../components/newCreated/DateFormatter";
+import MonthlyIncomeChart from "../components/newCreated/MonthlyIncomeChart";
+import useAuth from "../hooks/useAuth";
 
 const Dashboard = memo(() => {
   const [analytics, error, loading] = useAxios({
@@ -11,6 +13,9 @@ const Dashboard = memo(() => {
     method: "GET",
     url: "/analytics",
   });
+const {auth} = useAuth();
+
+console.log(auth);
 
   return (
     <>
@@ -19,11 +24,8 @@ const Dashboard = memo(() => {
         <div className="smallContainer radius slot min-h-[15rem] md:col-span-6 shadow-sm">
           <div className="flex justify-between">
             <h3 className=" headerText">Graph</h3>
-            <select className="myBtn">
-              <option value="all">All</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
+          
+            {!loading && analytics?.monthlyData &&<MonthlyIncomeChart data={analytics?.monthlyData} />}
           </div>
         </div>
 
@@ -101,6 +103,9 @@ const Dashboard = memo(() => {
             Stitched Items Count{" "}
             <p className="text-sm text-neutral-400 font-normal">(Today)</p>
           </h1>
+          <p className="text-7xl h-full justify-center items-center flex slotNumbers">
+            {analytics?.stitch && FormatNumber(analytics?.dailyData[-1]?.stitch ? analytics?.dailyData[-1]?.stitch : 0)}
+          </p>
         </div>
         <div className="smallContainer headerText radius slot flex-1 min-w-[15rem] min-h-[15rem] shadow-sm">
           <h1 className=" headerText">Monthly Revenue</h1>

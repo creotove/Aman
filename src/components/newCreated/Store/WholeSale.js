@@ -60,6 +60,7 @@ const WholeSale = () => {
         setEmail("");
         setPhone("");
         setAddress("");
+        getWholeSalers();
       }
     } catch (error) {
       console.log(error);

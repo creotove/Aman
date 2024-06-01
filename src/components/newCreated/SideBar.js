@@ -15,12 +15,10 @@ import profileIconFilled from "../../assets/icons/fill-userIcon.svg";
 import logo from "../../assets/logos/logo-v-white.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../../ComponentCss/SideBar.css";
-import UserContext from "../../context/UserContext";
 
 const SideBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { setUser } = useContext(UserContext);
   // eslint-disable-next-line
   const navItems = [
     {

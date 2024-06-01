@@ -1,16 +1,15 @@
 import axios from "../apis/admin";
-import React from "react";
+import React, { useEffect } from "react";
 import passwordKeyIcon from "../assets/icons/lockIcon.svg";
 import callIcon from "../assets/icons/callIcon.svg";
 import useToast from "../hooks/useToast";
 import Toast from "../components/newCreated/Toast";
 import { useNavigate } from "react-router-dom";
-import Loader from "../components/newCreated/Loader";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
   const [phoneNumber, setEmail] = React.useState(9824367931);
   const [password, setPassword] = React.useState("amanTailors");
-  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
   const {
     showToast,
@@ -20,6 +19,8 @@ const Login = () => {
     toastMsg,
     toastType,
   } = useToast();
+  const { auth,setAuth } = useAuth();
+
   const login = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -30,11 +31,11 @@ const Login = () => {
       return;
     }
     try {
-      setLoading(true);
       const res = await axios.post("/login", { phoneNumber, password });
       if (res.data.success) {
         localStorage.setItem("accessToken", res.data.data.accessToken);
         localStorage.setItem("refreshToken", res.data.data.refreshToken);
+        setAuth({user:res.data.data.user});
         setToastMsg("Login successful!");
         setToastType("success");
         setShowToast(true);
@@ -45,10 +46,17 @@ const Login = () => {
       setToastMsg(error?.response?.data?.message || error.message);
       setToastType("error");
       setShowToast(true);
-    } finally {
-      setLoading(false);
     }
   };
+  useEffect(() => {
+    if (auth.user) {
+      console.log("User is already logged in");
+      console.log(auth.user);
+      navigate("/");
+    }else{
+      console.log("User is not logged in");
+    }
+  }, [auth,navigate]);
   return (
     <section>
       {showToast && (
@@ -99,7 +107,7 @@ const Login = () => {
             </div>
             <div className="flex justify-end">
               <button type="submit" className="myBtn mt-5">
-              Login
+                Login
               </button>
             </div>
           </form>

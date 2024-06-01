@@ -23,11 +23,7 @@ const RequireAuth = () => {
         }
       );
       if (res.data.success) {
-        const user = res?.data?.user;
-        const data = {
-          user,
-        };
-        setAuth(data);
+        setAuth({user:res?.data?.data});
       }
     } catch (error) {
       console.log(error);
@@ -39,9 +35,17 @@ const RequireAuth = () => {
   useEffect(() => {
     getAuthenticateUser();
   }, []);
-  return <>{loading ? <section className="h-screen flex justify-center items-center w-screen">
-<span className="loader"></span>
-  </section>  : <Outlet />}</>;
+  return (
+    <>
+      {loading ? (
+        <section className="h-screen flex justify-center items-center w-screen">
+          <span className="loader"></span>
+        </section>
+      ) : (
+        <Outlet />
+      )}
+    </>
+  );
 };
 
 export default RequireAuth;

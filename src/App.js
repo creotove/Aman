@@ -18,6 +18,7 @@ import StitchBill from "./Pages/StitchBill";
 import SoldBill from "./Pages/SoldBill";
 import AddWork from "./Pages/AddWork";
 import GiveMoney from "./Pages/GiveMoney";
+import QrCodeReader from "./Pages/QrCodeReader";
 import AdvanceMoney from "./Pages/AdvanceMoney";
 import EditEmployeeProfile from "./Pages/EditEmployeeProfile.js";
 import Store from "./Pages/Store.js";
@@ -48,9 +49,10 @@ function App() {
           <Route path="/store" element={<Store />} />
           <Route path="/employees/:id" element={<EmployeeProfile />} />
           <Route path="/customers/:id" element={<CustomerProfile />} />
+          <Route path="/qrCode" element={<QrCodeReader />} />
         </Route>
       </Route>
-      <Route path="login" element={<Login />} />
+      <Route path="/login" element={<Login />} />
       {/* <Route path="/logout" element={<Logout />} /> */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
