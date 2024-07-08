@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchBar from "../components/newCreated/SearchBar";
 import Toast from "../components/newCreated/Toast";
 import SearchedCustomer from "../components/newCreated/SearchedCustomer";
@@ -7,10 +7,9 @@ import useToast from "../hooks/useToast";
 import useSearchBar from "../hooks/useSearchBar";
 import axios from "../apis/admin";
 import useAxios from "../hooks/useAxios";
-// import useAxiosFx from "../hooks/useAxiosFx";
 
 const Customers = () => {
-  const [customer, setCustomer] = React.useState(null);
+  const [customer, setCustomer] = useState(null);
   const {
     showToast,
     setShowToast,
@@ -19,24 +18,39 @@ const Customers = () => {
     toastMsg,
     toastType,
   } = useToast();
-  const { phoneNumber, setPhoneNumber, searchState, setSearchState } =
+  const [customerList, setCustomerList] = useState([]);
+  const { identifier, setIdentifier, searchState, setSearchState } =
     useSearchBar();
   const handleSearch = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!phoneNumber) {
+    if (!identifier) {
       setShowToast(true);
-      setToastMsg("Enter phone number !");
+      setToastMsg("Enter a valid phone number or name!");
       setToastType("error");
       return;
     }
     try {
-      const res = await axios.get(
-        `/customer?phoneNumber=${phoneNumber}&name=${phoneNumber}`
-      );
+      const isPhoneNumber = /^\d+$/.test(identifier);
+      let res;
+      if (isPhoneNumber) {
+        res = await axios.get(
+          `/searchCustomerBasedOnPhoneNumber/${identifier}`
+        );
+      } else {
+        res = await axios.get(
+          `/searchCustomersBasedOnName/${identifier}`
+        );
+      }
       if (res.data.success) {
         setSearchState(true);
-        setCustomer(res.data.data);
+        if (isPhoneNumber) {
+          setCustomer(res.data.data);
+          setCustomerList([]);
+        } else {
+          setCustomerList(res.data.data);
+          setCustomer(null);
+        }
       }
     } catch (error) {
       setShowToast(true);
@@ -64,11 +78,12 @@ const Customers = () => {
 
   return (
     <section
+      className="relative"
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
         setSearchState(false);
-        setPhoneNumber("");
+        setIdentifier("");
       }}
     >
       {showToast && (
@@ -86,8 +101,8 @@ const Customers = () => {
       <SearchBar
         placeHolderText={"Enter mobile number"}
         buttonText={"Customer mgmt."}
-        phoneNumber={phoneNumber}
-        setPhoneNumber={setPhoneNumber}
+        identifier={identifier}
+        setIdentifier={setIdentifier}
         handleSearch={handleSearch}
       />
       {/* searched result slot */}
@@ -97,9 +112,23 @@ const Customers = () => {
           customerId={customer.customer_id}
           avatar={customer.avatar}
           name={customer.name}
-          phoneNumber={customer.phoneNumber}
+          identifier={customer.identifier}
         />
       ) : null}
+      {searchState && customerList.length > 0 ? (
+        customerList.map((customer) => (
+          <SearchedCustomer
+            key={customer._id}
+            userId={customer._id}
+            customerId={customer.customer_id}
+            avatar={customer.avatar}
+            name={customer.name}
+            identifier={customer.identifier}
+          />
+        ))
+      ) : null}
+
+
       <div className="grid md:grid-cols-12 gap-4 mt-5">
         <div className="md:col-span-4  radius slot min-h-screen shadow-sm smallContainer">
           <h1 className="headerText">
@@ -109,14 +138,14 @@ const Customers = () => {
             </span>
           </h1>
           {stitchCustomerList?.data &&
-          stitchCustomerList?.data.length > 0 &&
-          !stitchCustomerListLoading &&
-          !stitchCustomerListError ? (
+            stitchCustomerList?.data.length > 0 &&
+            !stitchCustomerListLoading &&
+            !stitchCustomerListError ? (
             stitchCustomerList?.data?.map((stitchCustomer, index) => (
               <CustomerList
                 key={index}
                 name={stitchCustomer.name}
-                phoneNumber={stitchCustomer.phoneNumber}
+                identifier={stitchCustomer.identifier}
                 avatar={stitchCustomer.avatar}
                 customerId={stitchCustomer.customer_id}
               />
@@ -135,14 +164,14 @@ const Customers = () => {
             </span>
           </h1>
           {soldCustomerList?.data &&
-          soldCustomerList?.data.length > 0 &&
-          !soldCustomerListLoading &&
-          !soldCustomerListError ? (
+            soldCustomerList?.data.length > 0 &&
+            !soldCustomerListLoading &&
+            !soldCustomerListError ? (
             soldCustomerList?.data?.map((soldCustomer) => (
               <CustomerList
                 key={soldCustomer._id}
                 name={soldCustomer.name}
-                phoneNumber={soldCustomer.phoneNumber}
+                identifier={soldCustomer.identifier}
                 avatar={soldCustomer.avatar}
                 customerId={soldCustomer.customer_id}
               />
@@ -159,5 +188,3 @@ const Customers = () => {
 };
 
 export default Customers;
-// overflow-y-scroll no-scrollbar
-// overflow-y-scroll no-scrollbar

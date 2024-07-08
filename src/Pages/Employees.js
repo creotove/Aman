@@ -35,18 +35,18 @@ const Employees = () => {
     toastMsg,
     toastType,
   } = useToast();
-  const { phoneNumber, setPhoneNumber, searchState, setSearchState } =
+  const { identifier, setIdentifier, searchState, setSearchState } =
     useSearchBar();
   const handleSearch = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!phoneNumber) {
+    if (!identifier) {
       setShowToast(true);
       setToastMsg("Enter phone number !");
       setToastType("error");
       return;
     }
-    if (phoneNumber.length < 10) {
+    if (identifier.length < 10) {
       setShowToast(true);
       setToastMsg("Enter valid phone number !");
       setToastType("error");
@@ -67,7 +67,7 @@ const Employees = () => {
         e.preventDefault();
         e.stopPropagation();
         setSearchState(false);
-        setPhoneNumber("");
+        setIdentifier("");
       }}
     >
       {showToast && (
@@ -85,8 +85,8 @@ const Employees = () => {
       <SearchBar
         placeHolderText={"Enter mobile number"}
         buttonText={""}
-        phoneNumber={phoneNumber}
-        setPhoneNumber={setPhoneNumber}
+        identifier={identifier}
+        setIdentifier={setIdentifier}
         handleSearch={handleSearch}
       />
       {/* searched result slot */}
@@ -98,15 +98,15 @@ const Employees = () => {
           {employeeListLoading
             ? "Loading"
             : employeeList &&
-              employeeList.map((employee) => (
-                <EmployeeList
-                  name={employee.name}
-                  role={employee.role}
-                  avatar={employee.avatar}
-                  key={employee._id}
-                  _id={employee._id}
-                />
-              ))}
+            employeeList.map((employee) => (
+              <EmployeeList
+                name={employee.name}
+                role={employee.role}
+                avatar={employee.avatar}
+                key={employee._id}
+                _id={employee._id}
+              />
+            ))}
         </div>
         {/* <div className="md:col-span-4 gap-4 flex flex-col min-h-[30rem]">
           <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot smallContainer">

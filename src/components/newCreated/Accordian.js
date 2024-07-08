@@ -21,9 +21,8 @@ export default function Accordion({
       >
         {name}
         <span
-          className={`float-right transform ${
-            isOpen ? "-rotate-90" : "rotate-90"
-          }  
+          className={`float-right transform ${isOpen ? "-rotate-90" : "rotate-90"
+            }  
                                  transition-transform duration-300`}
         >
           <svg

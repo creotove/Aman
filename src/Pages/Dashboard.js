@@ -5,7 +5,6 @@ import FormatSlotNumber from "../components/newCreated/FormatSlotNumber";
 import FormatNumber from "../components/newCreated/FormatNumber";
 import DateFormatter from "../components/newCreated/DateFormatter";
 import MonthlyIncomeChart from "../components/newCreated/MonthlyIncomeChart";
-import useAuth from "../hooks/useAuth";
 
 const Dashboard = memo(() => {
   const [analytics, error, loading] = useAxios({
@@ -13,10 +12,6 @@ const Dashboard = memo(() => {
     method: "GET",
     url: "/analytics",
   });
-const {auth} = useAuth();
-
-console.log(auth);
-
   return (
     <>
       {/* Row 1 */}
@@ -24,8 +19,8 @@ console.log(auth);
         <div className="smallContainer radius slot min-h-[15rem] md:col-span-6 shadow-sm">
           <div className="flex justify-between">
             <h3 className=" headerText">Graph</h3>
-          
-            {!loading && analytics?.monthlyData &&<MonthlyIncomeChart data={analytics?.monthlyData} />}
+
+            {!loading && analytics?.monthlyData && <MonthlyIncomeChart data={analytics?.monthlyData} />}
           </div>
         </div>
 

@@ -15,7 +15,7 @@ const MeasurementStepper = () => {
     initializeMeasurements,
     setInitializeMeasurements,
   } = useStitchBill();
-  const { setCurrentStep } = useSteps();
+  const { currentStep, setCurrentStep } = useSteps();
   const [activeStep, setActiveStep] = useState(0);
   const [measurement, setMeasurement] = useState({});
 
@@ -46,7 +46,7 @@ const MeasurementStepper = () => {
         }
       );
       const measurements = addMeasurementof.find((item) => item.name === name);
-      const res = await axios.post(`/addMeasurement/${customerId}`, {
+      const res = await axios.post(`/measurement/${customerId}`, {
         name,
         measurements: measurements.measurements,
       });

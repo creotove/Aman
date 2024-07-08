@@ -2,9 +2,9 @@ import { useState } from "react";
 
 const useSearchBar = () => {
   const [searchState, setSearchState] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState();
+  const [identifier, setIdentifier] = useState("");
 
-  return { phoneNumber, setPhoneNumber,searchState,setSearchState };
+  return { identifier, setIdentifier, searchState, setSearchState };
 };
 
 export default useSearchBar;

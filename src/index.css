@@ -74,7 +74,7 @@
 
 .inputBox:hover {
   background-color: #070707;
-  background: linear-gradient(180deg,#1e1e1e,#121212);
+  background: linear-gradient(180deg, #1e1e1e, #121212);
   border: 2px solid #525252;
 
 }
@@ -93,7 +93,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .slot:hover {
-  background: linear-gradient(180deg,#1e1e1e,#121212);
+  background: linear-gradient(180deg, #1e1e1e, #121212);
 }
 
 
@@ -103,7 +103,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .myBtn {
-  background: linear-gradient(180deg,#1e1e1e,#121212);
+  background: linear-gradient(180deg, #1e1e1e, #121212);
   color: #d9d9d9;
   border: 2px solid #1b1b1b;
   padding: 0.5rem 1.75rem;
@@ -142,6 +142,7 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 0.9rem;
   color: #8A8A8A;
 }
+
 .nav_item.active {
   background: #131313;
   color: #fff;
@@ -162,7 +163,7 @@ label {
 .pill {
   color: #fff;
   padding: 0rem .7rem;
-  background: linear-gradient(180deg,#1e1e1e,#121212);
+  background: linear-gradient(180deg, #1e1e1e, #121212);
 }
 
 .dropFiles {
@@ -175,6 +176,7 @@ label {
   display: flex;
   align-items: center;
 }
+
 .loader {
   width: 48px;
   height: 48px;
@@ -182,29 +184,46 @@ label {
   position: relative;
   animation: rotate 1s linear infinite
 }
-.loader::before , .loader::after {
+
+.loader::before,
+.loader::after {
   content: "";
   box-sizing: border-box;
   position: absolute;
   inset: 0px;
   border-radius: 50%;
   border: 5px solid #FFF;
-  animation: prixClipFix 2s linear infinite ;
+  animation: prixClipFix 2s linear infinite;
 }
-.loader::after{
-  transform: rotate3d(90, 90, 0, 180deg );
+
+.loader::after {
+  transform: rotate3d(90, 90, 0, 180deg);
   border-color: #FF3D00;
 }
 
 @keyframes rotate {
-  0%   {transform: rotate(0deg)}
-  100%   {transform: rotate(360deg)}
+  0% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
 }
 
 @keyframes prixClipFix {
-    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
-    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
-    75%, 100%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+  }
+
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
+  }
+
+  75%,
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
+  }
 }
 
 @layer utilities {

@@ -19,7 +19,7 @@ const Login = () => {
     toastMsg,
     toastType,
   } = useToast();
-  const { auth,setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
 
   const login = async (e) => {
     e.preventDefault();
@@ -33,9 +33,7 @@ const Login = () => {
     try {
       const res = await axios.post("/login", { phoneNumber, password });
       if (res.data.success) {
-        localStorage.setItem("accessToken", res.data.data.accessToken);
-        localStorage.setItem("refreshToken", res.data.data.refreshToken);
-        setAuth({user:res.data.data.user});
+        setAuth({ user: res.data.data.user });
         setToastMsg("Login successful!");
         setToastType("success");
         setShowToast(true);
@@ -53,10 +51,10 @@ const Login = () => {
       console.log("User is already logged in");
       console.log(auth.user);
       navigate("/");
-    }else{
+    } else {
       console.log("User is not logged in");
     }
-  }, [auth,navigate]);
+  }, [auth, navigate]);
   return (
     <section>
       {showToast && (

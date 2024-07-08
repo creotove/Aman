@@ -4,6 +4,7 @@ import useSteps from "../hooks/useSteps";
 import useStitchBill from "../hooks/useStitchBill";
 import axios from "../apis/admin";
 import { useNavigate } from "react-router-dom";
+import handlePrint from "../components/newCreated/HandlePrint";
 
 const StitchBill = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const StitchBill = () => {
     finalAmt,
     billItems,
     deliveryDate,
+    measurements,
   } = useStitchBill();
   const handleSumbit = async () => {
     const data = {
@@ -28,7 +30,8 @@ const StitchBill = () => {
       advanceAmt,
     };
     try {
-      const res = await axios.post("/addStitchBill", data);
+      handlePrint(measurements);
+      const res = await axios.post("/stitchBill", data);
       if (res.data.success) {
         navigate("/customers");
       }
@@ -38,7 +41,7 @@ const StitchBill = () => {
   };
 
   return (
-    <section className="">
+    <section className="h-full ">
       <div className="smallContainer">
         <Stepper />
         {currentStep === 2 ? null : currentStep === 4 ? (

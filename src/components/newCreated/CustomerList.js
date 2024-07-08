@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const CustomerList = ({ name, phoneNumber, avatar,customerId }) => {
+const CustomerList = ({ name, phoneNumber, avatar, customerId }) => {
   const navigate = useNavigate();
   return (
     <div className="inputBox p-3 radius text-white flex items-center gap-4 mb-1 cursor-pointer"
-      onClick = {()=>navigate(`/customers/${customerId}`, { state: { id: customerId } })}
+      onClick={() => navigate(`/customers/${customerId}`, { state: { id: customerId } })}
 
     >
       <div className="rounded-full bg-neutral-900  w-11 h-11 ms-2 overflow-hidden">

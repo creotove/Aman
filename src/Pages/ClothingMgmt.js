@@ -7,6 +7,7 @@ import Toast from "../components/newCreated/Toast";
 
 const ClothingMgmt = () => {
   const [accordions, setAccordion] = useState([]);
+  const [loading, setLoading] = useState(false);
   const toggleAccordion = (accordionkey) => {
     const updatedAccordions = accordions.map((accord) => {
       if (accord.key === accordionkey) {
@@ -18,16 +19,17 @@ const ClothingMgmt = () => {
 
     setAccordion(updatedAccordions);
   };
-  const [measurementNames, setMeasurementNames] = useState([]);
   const [measurementName, setMeasurementName] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState("");
   const measurementRef = React.useRef();
+
   // add measurement name
   const handleAdd = () => {
     if (measurementName === "") return;
     const newMeasurementNames = [...measurementNames];
-    newMeasurementNames.push(measurementName);
+    const capitalizedName = measurementName.charAt(0).toUpperCase() + measurementName.slice(1);
+    newMeasurementNames.push(capitalizedName.trim());
     setMeasurementNames(newMeasurementNames);
     setMeasurementName("");
     measurementRef.current.focus();
@@ -42,6 +44,7 @@ const ClothingMgmt = () => {
   const [stitchingAmtCustomer, setStitchingAmtCustomer] = useState("");
   const [stitchingAmtTailor, setStitchingAmtTailor] = useState("");
   const [cuttingAmt, setCuttingAmt] = useState("");
+  const [measurementNames, setMeasurementNames] = useState([]);
 
   // add data to server
   const handleSubmit = async () => {
@@ -65,7 +68,7 @@ const ClothingMgmt = () => {
       if (editMode) {
         res = await axios.patch(`/clothingItem/${editId}`, data);
       } else {
-        res = await axios.post("/addClothingItem", data);
+        res = await axios.post("/clothingItem", data);
       }
       if (res.data.success) {
         setShowToast(true);
@@ -89,9 +92,14 @@ const ClothingMgmt = () => {
 
   const getClotingItems = async () => {
     try {
+      setLoading(true);
       const res = await axios.get("/clothingItems");
       if (res.data.success) {
-        const clothingItems = res.data.data;
+        const clothingItems = res?.data?.data;
+        if (clothingItems.length === 0) {
+          setAccordion([]);
+          return;
+        }
         const newAccordions = clothingItems.map((item, i) => {
           return {
             id: item._id,
@@ -111,6 +119,8 @@ const ClothingMgmt = () => {
       setToastMsg(error.response.data.message);
       setToastType("error");
       console.log(error.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
   const {
@@ -126,7 +136,7 @@ const ClothingMgmt = () => {
   // delete data from server
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete(`/deleteClothingItem/${id}`);
+      const res = await axios.delete(`/clothingItem/${id}`);
       if (res.data.success) {
         setShowToast(true);
         setToastMsg(res.data.message);
@@ -251,11 +261,10 @@ const ClothingMgmt = () => {
                 </p>
               </div>
               <div
-                className={`inputBox min-h-[10rem] flex flex-wrap gap-4 ${
-                  measurementNames.length > 0
-                    ? ""
-                    : "cursor-not-allowed pointer-events-none"
-                }`}
+                className={`bg-black border border-[#525252] p-4 radius min-h-[10rem] flex flex-wrap gap-4 ${measurementNames.length > 0
+                  ? ""
+                  : "cursor-not-allowed pointer-events-none"
+                  }`}
               >
                 {measurementNames &&
                   measurementNames.map((measurementName, i) => (
@@ -277,7 +286,7 @@ const ClothingMgmt = () => {
           </div>
           <div className="md:col-span-5 radius w-full">
             {accordions &&
-              accordions.length > 0 &&
+              accordions.length > 0 ?
               accordions.map((accordion, i) => (
                 <Accordion
                   key={accordion.key}
@@ -293,7 +302,18 @@ const ClothingMgmt = () => {
                   handleDelete={handleDelete}
                   handleEdit={handleEdit}
                 />
-              ))}
+              )) : loading ? (
+                <div className="flex justify-center items-center h-96">
+                  <div className="loader"></div>
+                </div>
+              ) : (
+                <div className="md:col-span-5 radius flex bg-[#0b0b0b] border border-[#1b1b1b]
+                justify-center items-center h-full
+                smallContainer">
+                  <p className="text-[#FC3447]">No Clothings Items found</p>
+                </div>
+              )
+            }
           </div>
         </div>
       </section>

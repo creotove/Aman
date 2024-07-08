@@ -93,7 +93,7 @@ const CustomerProfile = () => {
             setModalState={setModalState}
           >
             <div className="flex justify-center items-center">
-              <div className="grid md:grid-cols-12 w-64 gap-4">
+              <div className="grid md:grid-cols-12 w-full gap-4 ">
                 {accordions &&
                   accordions.map((accordion) => (
                     <MeasurementAccordian
@@ -133,13 +133,13 @@ const CustomerProfile = () => {
           </div>
 
           <div className="radius md:col-span-2 slot  smallContainer">
-            <h1 classname="">Purchased Bill</h1>
+            <h1 className="">Purchased Bill</h1>
             <p className="text-8xl text-center slotNumbers">
               {FormatSlotNumber(customerProfile?.purchasedBillCount)}
             </p>
           </div>
           <div className="radius md:col-span-2 slot  smallContainer">
-            <h1 classname="">Stitched Bill</h1>
+            <h1 className="">Stitched Bill</h1>
             <p className="text-8xl text-center slotNumbers">
               {FormatSlotNumber(customerProfile?.stitchedBillCount)}
             </p>

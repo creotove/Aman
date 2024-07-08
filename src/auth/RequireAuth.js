@@ -12,18 +12,9 @@ const RequireAuth = () => {
     try {
       const res = await axios.post(
         "/getAuthenticateUser",
-        {
-          accessToken: localStorage.getItem("accessToken"),
-          refreshToken: localStorage.getItem("refreshToken"),
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
       );
       if (res.data.success) {
-        setAuth({user:res?.data?.data});
+        setAuth({ user: res?.data?.data?.user });
       }
     } catch (error) {
       console.log(error);

@@ -3,11 +3,10 @@ import React from "react";
 const Modal = ({ modalState, setModalState, title, children }) => {
   return (
     <div
-      className={`${
-        modalState
-          ? "fixed inset-0 z-50 flex items-center  justify-center bg-neutral-950 bg-opacity-80"
-          : "hidden"
-      } `}
+      className={`${modalState
+        ? "fixed inset-0 z-50 flex items-center  justify-center bg-neutral-950 bg-opacity-80"
+        : "hidden"
+        } `}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -15,7 +14,7 @@ const Modal = ({ modalState, setModalState, title, children }) => {
       }}
     >
       <div
-        className="bg-black border border-neutral-800 smallContainer radius h-3/4 md:h-min md:min-w-[40rem] overflow-hidden max-w-lg w-full"
+        className="bg-black border border-neutral-800 smallContainer radius h-3/4 md:h-min md:min-w-[40rem] overflow-y-auto no-scrollbar max-w-lg w-full"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();

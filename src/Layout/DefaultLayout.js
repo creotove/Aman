@@ -5,10 +5,10 @@ import { Outlet } from "react-router-dom";
 const DefaultLayout = () => {
   return (
     <>
-        <SideBar />
-        <section className="flex-1  overflow-x-auto no-scrollbar mt-5 p-3">
-          <Outlet /> {/* The content for each route will be displayed here */}
-        </section>
+      <SideBar />
+      <section className="flex-1  relative overflow-x-auto no-scrollbar mt-5 p-3">
+        <Outlet /> {/* The content for each route will be displayed here */}
+      </section>
     </>
   );
 };

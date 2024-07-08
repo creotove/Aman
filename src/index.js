@@ -12,20 +12,20 @@ root.render(
   <BrowserRouter>
     <React.StrictMode>
       <AuthProvider>
-          <StepsProvider>
-            <StitchBillProvider>
-              <Routes>
-                <Route
-                  path="/*"
-                  element={
-                    <div className="dashboard flex">
-                      <App />
-                    </div>
-                  }
-                />
-              </Routes>
-            </StitchBillProvider>
-          </StepsProvider>
+        <StepsProvider>
+          <StitchBillProvider>
+            <Routes>
+              <Route
+                path="/*"
+                element={
+                  <div className="dashboard flex">
+                    <App />
+                  </div>
+                }
+              />
+            </Routes>
+          </StitchBillProvider>
+        </StepsProvider>
       </AuthProvider>
     </React.StrictMode>
   </BrowserRouter>

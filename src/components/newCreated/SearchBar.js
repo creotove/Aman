@@ -3,8 +3,8 @@ import ChooseBill from "./ChooseBill";
 
 const SearchBar = ({
   placeHolderText,
-  phoneNumber,
-  setPhoneNumber,
+  identifier,
+  setIdentifier,
   handleSearch,
   buttonText,
 }) => {
@@ -20,13 +20,13 @@ const SearchBar = ({
       <div className="flex flex-wrap justify-between w-full">
         <div className="flex justify-center items-center order-2 md:order-1 mt-5 md:mt-0">
           <input
-            type="number"
-            value={phoneNumber}
+            type="text"
+            value={identifier}
             onKeyDown={(e) => {
               if (e.key === "Enter") handleSearch(e);
             }}
             onChange={(e) => {
-              setPhoneNumber(e.target.value);
+              setIdentifier(e.target.value);
             }}
             className="inputBox text-white md:w-96 me-2"
             placeholder={placeHolderText}
@@ -74,11 +74,11 @@ const SearchBar = ({
           )}
           {buttonText === "Customer mgmt."
             ? modalState && (
-                <ChooseBill
-                  modalState={modalState}
-                  setModalState={setModalState}
-                />
-              )
+              <ChooseBill
+                modalState={modalState}
+                setModalState={setModalState}
+              />
+            )
             : null}
         </div>
       </div>
