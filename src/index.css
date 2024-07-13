@@ -208,7 +208,7 @@ label {
 
 .myInvoiceContainer::before {
   content: "";
-  background-image: url('./assets//images/flowePattern.svg');
+  /* background-image: url('./assets/images/flowePattern.svg'); */
   background-size: cover;
   position: absolute;
   inset: 0;

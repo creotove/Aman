@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "../apis/admin";
 import useToast from "../hooks/useToast";
 import Toast from "../components/newCreated/Toast";
-import flowePrintPattern from '../assets/images/flowePattern.svg'
 
 const SoldBill = () => {
   const [name, setName] = useState("");
