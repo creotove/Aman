@@ -16,7 +16,12 @@ const Employees = () => {
     try {
       const res = await axios.get("/employees");
       if (res.data.success) {
-        setEmployeeList(res.data.data);
+        const data = res.data.data;
+        if (data && data.length > 0) {
+          setEmployeeList(data);
+        } else {
+          setEmployeeList([]);
+        }
       }
     } catch (error) {
       console.error("Error fetching employees", error);
@@ -98,15 +103,20 @@ const Employees = () => {
           {employeeListLoading
             ? "Loading"
             : employeeList &&
-            employeeList.map((employee) => (
-              <EmployeeList
-                name={employee.name}
-                role={employee.role}
-                avatar={employee.avatar}
-                key={employee._id}
-                _id={employee._id}
-              />
-            ))}
+              employeeList.length > 0 ?
+              employeeList.map((employee) => (
+                <EmployeeList
+                  name={employee.name}
+                  role={employee.role}
+                  avatar={employee.avatar}
+                  key={employee._id}
+                  _id={employee._id}
+                />
+              )) :
+              <div className="flex justify-center items-center h-full">
+                <p className="text-[#FC3447]">No employee found</p>
+              </div>
+          }
         </div>
         {/* <div className="md:col-span-4 gap-4 flex flex-col min-h-[30rem]">
           <div className="radius md:col-span-1 min-w-[10rem] md:min-h-[10rem] min-h-[15rem] max-h-[15rem] slot smallContainer">

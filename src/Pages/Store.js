@@ -8,16 +8,16 @@ const Store = () => {
     <section>
       <nav className="flex justify-end mb-4 sticky">
         <ul className="flex gap-2">
-          <li onClick={()=>setActive(1)}className={`py-2 px-4 cursor-pointer radius ${active === 1 ? 'active' : ''} nav_item hover:bg-[#1b1b1b]`}>Fabric</li>
-          <li onClick={()=>setActive(2)}className={`py-2 px-4 cursor-pointer radius ${active === 2 ? 'active' : ''} nav_item hover:bg-[#1b1b1b]`}>Whole Sale</li>
+          <li onClick={() => setActive(1)} className={`py-2 px-4 text-gray-600 cursor-pointer radius ${active === 1 ? 'active' : ''} nav_item hover:bg-[#1b1b1b]`}>Fabric</li>
+          <li onClick={() => setActive(2)} className={`py-2 px-4 text-gray-600 cursor-pointer radius ${active === 2 ? 'active' : ''} nav_item hover:bg-[#1b1b1b]`}>Whole Sale</li>
         </ul>
       </nav>
-      
-        {active === 1 ? (
-          <Fabric />
-        ) : (
-          <WholeSale />
-        )}
+
+      {active === 1 ? (
+        <Fabric />
+      ) : (
+        <WholeSale />
+      )}
     </section>
   );
 };

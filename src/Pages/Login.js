@@ -48,8 +48,6 @@ const Login = () => {
   };
   useEffect(() => {
     if (auth.user) {
-      console.log("User is already logged in");
-      console.log(auth.user);
       navigate("/");
     } else {
       console.log("User is not logged in");
@@ -78,7 +76,7 @@ const Login = () => {
                 <img src={callIcon} alt="passwordKeyIcon" className="w-4 h-4" />
               </span>
               <input
-                type="number"
+                type="password"
                 id="phoneNumber"
                 className="rounded-none rounded-r-lg bg-black border text-white focus:ring-yellow-400 focus:border-yellow-400 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5"
                 placeholder="Phone number"

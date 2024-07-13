@@ -37,13 +37,14 @@ const Stepper = () => {
             ref={(el) => {
               stepRef.current[idx] = el;
             }}
-            className={`step ${
-              currentStep > idx + 1 || isComplete ? "complete" : ""
-            } ${currentStep === idx + 1 ? "active" : ""}`}
+            className={`step ${currentStep > idx + 1 || isComplete ? "complete" : ""
+              } ${currentStep === idx + 1 ? "active" : ""}`}
           >
             <div className="z-10 radius h-8 w-8 border step-number border-slate-200 bg-black flex justify-center items-center">
               {currentStep > idx + 1 || isComplete ? (
-                <span>&#10003;</span>
+                <span>    <svg width={20} height={17} viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5.72868 16.0388L0.5 10.8101L2.26744 9.18992L5.72868 12.6512L17.7326 0.5L19.5 2.26744L5.72868 16.0388Z" fill="#166534" />
+                </svg></span>
               ) : (
                 idx + 1
               )}

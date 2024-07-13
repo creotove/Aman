@@ -165,12 +165,16 @@ const AddWork = () => {
             {clothings.map((item) => (
               <div key={item.name}>
                 <input
+                  id={item.name}
+                  name={item.name}
                   type="checkbox"
                   onChange={handleChange}
                   checked={selectedClothings.includes(item.name)}
                   value={item.name}
                 />
-                <label>{item.name}</label>
+                <label
+                  htmlFor={item.name}
+                >{item.name}</label>
               </div>
             ))}
           </div>

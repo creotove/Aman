@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useToast from "../../../hooks/useToast";
 import axios from "../../../apis/admin";
 import Toast from "../Toast";
+import { useNavigate } from "react-router-dom";
 
 const WholeSale = () => {
   const [name, setName] = useState("");
@@ -9,6 +10,7 @@ const WholeSale = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [wholeSalers, setWholeSalers] = useState([]);
+  const navigate = useNavigate()
 
   const {
     showToast,
@@ -51,7 +53,7 @@ const WholeSale = () => {
         address,
       };
 
-      const res = await axios.post("/addWholeSaler", data);
+      const res = await axios.post("/wholeSaler", data);
       if (res.data.success) {
         setToastMsg("Saved");
         setToastType("success");
@@ -98,7 +100,7 @@ const WholeSale = () => {
           }} // Close the toast
         />
       )}
-      <div className="bg-[#0b0b0b] border border-[#1b1b1b] smallContainer radius overflow-auto no-scrollbar md:col-span-7">
+      <div className="bg-[#0b0b0b] border border-[#1b1b1b] smallContainer radius overflow-auto no-scrollbar md:col-span-7 text-white">
         <table className="w-full text-sm text-left rtl:text-right ">
           <thead className="text-xs inputBox subText uppercase">
             <tr className="">
@@ -138,8 +140,11 @@ const WholeSale = () => {
                   </td>
                   <td className="px-3 py-3 text-center">
                     <button
-                      className="text-xs text-white px-2 py-1 radius bg-green-500 me-2
+                      className="text-xs font-semibold px-2 py-1 radius me-2 bg-green-300 text-green-800
                   "
+                      onClick={() => {
+                        navigate(`addWholeSalerBill/${wholeSaler._id}`);
+                      }}
                     >
                       Add Bill
                     </button>
@@ -205,7 +210,7 @@ const WholeSale = () => {
             </div>
           </div>
           <div className="flex justify-end">
-            <button onClick={handleAddWholeSaler} className="myBtn">
+            <button onClick={handleAddWholeSaler} className="myBtn-success">
               Save
             </button>
           </div>

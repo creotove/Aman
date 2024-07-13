@@ -166,9 +166,8 @@ const Fabric = () => {
       )}
       <div
         onClick={() => setClicked(false)}
-        className={`bg-[#0b0b0b] border border-[#1b1b1b] smallContainer radius  overflow-auto no-scrollbar  ${
-          clicked ? "col-span-4 cursor-pointer" : "col-span-7"
-        }`}
+        className={`bg-[#0b0b0b] border border-[#1b1b1b] smallContainer radius  overflow-auto no-scrollbar  ${clicked ? "col-span-4 cursor-pointer" : "col-span-7"
+          }`}
       >
         <table className="w-full text-sm text-left rtl:text-right ">
           <thead className="text-xs inputBox subText uppercase">
@@ -241,9 +240,8 @@ const Fabric = () => {
       </div>
       <div
         onClick={() => setClicked(true)}
-        className={`bg-[#0b0b0b] border border-[#1b1b1b] h-[80vh] smallContainer radius overflow-auto no-scrollbar ${
-          clicked ? "col-span-8 " : "col-span-5 cursor-pointer"
-        }`}
+        className={`bg-[#0b0b0b] border border-[#1b1b1b] h-[80vh] smallContainer radius overflow-auto no-scrollbar ${clicked ? "col-span-8 " : "col-span-5 cursor-pointer"
+          }`}
       >
         <form>
           <div className="flex flex-wrap gap-4">
@@ -367,7 +365,7 @@ const Fabric = () => {
             <button
               onClick={handleAddFabric}
               disabled={loading}
-              className="myBtn"
+              className="myBtn-success"
             >
               Save
             </button>

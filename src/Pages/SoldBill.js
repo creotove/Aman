@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "../apis/admin";
 import useToast from "../hooks/useToast";
 import Toast from "../components/newCreated/Toast";
+import flowePrintPattern from '../assets/images/flowePattern.svg'
 
 const SoldBill = () => {
   const [name, setName] = useState("");
@@ -106,8 +107,81 @@ const SoldBill = () => {
         </form>
       </div>
       {/* Preview */}
-      <div className="md:col-span-6 bg-[#0b0b0b] border border-[#1b1b1b] smallContainer md:min-h-screen radius">
-        <h2 className="text-2xl">Preview</h2>
+      <div className="md:col-span-6 bg-[#0b0b0b] border border-[#1b1b1b] smallContainer md:min-h-screen radius ">
+        <button className="myBtn">Print</button>
+        <div className="myInvoiceContainer radius p-3">
+          <div className="flex justify-between ">
+            <h2 className="text-2xl">Preview</h2>
+          </div>
+          <div className="flex justify-between">
+            <div>
+              <h3>Customer Name</h3>
+              <p>{name}</p>
+            </div>
+            <div>
+              <h3>Customer Phone Number</h3>
+              <p>{phoneNumber}</p>
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <div>
+              <h3>Company Address</h3>
+              <p>Chandragiri, Kathmandu</p>
+            </div>
+            <div>
+              <h3>Company Phone Number</h3>
+              <p>9860123456</p>
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <div>
+              <h3>Invoice Date</h3>
+              <p>{new Date().toDateString()}</p>
+            </div>
+            <div>
+              <h3>Invoice Number</h3>
+              <p>123456</p>
+            </div>
+          </div>
+          <div className="my-3">
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th>Fabric Name</th>
+                  <th>Fabric Meter</th>
+                  <th>Fabric Meter Price</th>
+                  <th>Fabric Total Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Shirt</td>
+                  <td>2</td>
+                  <td>500</td>
+                  <td>1000</td>
+                </tr>
+                <tr>
+                  <td>Pant</td>
+                  <td>2</td>
+                  <td>500</td>
+                  <td>1000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="flex justify-between">
+            <div>
+              <h3>Total Amount</h3>
+              <p>{totalAmt}</p>
+            </div>
+            <div>
+              <h3>Discount</h3>
+              <p>0</p>
+            </div>
+          </div>
+
+
+        </div>
       </div>
     </section>
   );

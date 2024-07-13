@@ -4,12 +4,29 @@ import useToast from "../hooks/useToast";
 import Toast from "../components/newCreated/Toast";
 import { useNavigate } from "react-router-dom";
 import axios from "../apis/admin";
+import useAuth from "../hooks/useAuth";
 
 const Profile = () => {
   const [password, setPassword] = useState("");
   const [modalState, setModalState] = useState(false);
   const [otp, setOTP] = useState("");
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
+  const handleLogout = async () => {
+    try {
+      const res = await axios.post('/logout');
+      if (res.data.success) {
+        navigate("/login");
+        setAuth({ user: null });
+      }
+
+    } catch (error) {
+      setShowToast(true);
+      setToastMsg(error?.response?.data?.message || error?.message);
+      setToastType("error");
+      console.log(error);
+    }
+  };
   const {
     showToast,
     setShowToast,
@@ -106,7 +123,7 @@ const Profile = () => {
               />
             </div>
             <button
-              className="myBtn"
+              className="myBtn-success"
               onClick={() => {
                 validateOTP(otp);
               }}
@@ -134,8 +151,7 @@ const Profile = () => {
         <button
           className="delete deleteBtn"
           onClick={() => {
-            localStorage.clear();
-            navigate("/login");
+            handleLogout();
           }}
         >
           Logout
