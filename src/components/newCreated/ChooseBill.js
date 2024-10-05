@@ -45,6 +45,12 @@ const ChooseBill = ({ modalState, setModalState }) => {
           >
             Sold Bill
           </button>
+          <button
+            onClick={() => navigate("/qrCode", { state: { id: 2 } })}
+            className="myBtn"
+          >
+            QR Code Scanner
+          </button>
         </div>
       </Modal>
     </section>

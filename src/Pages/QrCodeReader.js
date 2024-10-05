@@ -1,92 +1,145 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Html5QrcodeScanner } from "html5-qrcode";
-import * as pdfjs from "pdfjs-dist/build/pdf";
+import { Html5QrcodeScanner, Html5QrcodeScanType, Html5QrcodeSupportedFormats } from "html5-qrcode";
+import ImageUploader from "../components/newCreated/FileUploader";
+import { scanFile } from "@openhealthnz-credentials/pdf-image-qr-scanner";
 
 const QrCodeReader = () => {
-  const [scanResult, setScanResult] = useState({
-    Length: "0",
-    Waist: "0",
-    Hip: "0",
-    Thigh: "0",
-    Knee: "0",
-    Ankle: "0",
-    name: "Altamas",
-    phoneNumber: "9265704645"
-  });
-
+  const [scanResult, setScanResult] = useState(null);
+  const [showScanner, setShowScanner] = useState(false);
+  const [error, setError] = useState(null);
+  const [resetTriggered, setResetTriggered] = useState(false);
   const html5QrcodeScannerRef = useRef(null);
 
-  const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-    console.log(decodedText);
+  const qrCodeSuccessCallback = (decodedText) => {
     setScanResult(JSON.parse(decodedText));
-    if (html5QrcodeScannerRef.current) {
-      html5QrcodeScannerRef.current.clear(); // Clear the scanner
-    }
+    setShowScanner(false);
+    setError(null);
   };
 
   const qrCodeErrorCallback = (errorMessage) => {
-    console.log(errorMessage);
+    console.error(errorMessage);
   };
 
   useEffect(() => {
-    const config = { fps: 10, qrbox: 250 };
-    const html5QrcodeScanner = new Html5QrcodeScanner("reader", config, true);
-    html5QrcodeScannerRef.current = html5QrcodeScanner; // Save reference to ref
-    html5QrcodeScanner.render(qrCodeSuccessCallback, qrCodeErrorCallback);
+    if (showScanner) {
+      const config = { fps: 10, qrbox: 250 };
+      const scanner = new Html5QrcodeScanner("reader", {
+        config,
+        supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+        formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE]
+      }, true);
+      html5QrcodeScannerRef.current = scanner;
+      scanner.render(qrCodeSuccessCallback, qrCodeErrorCallback);
+    }
 
     return () => {
       if (html5QrcodeScannerRef.current) {
         html5QrcodeScannerRef.current.clear();
       }
     };
-  }, [qrCodeSuccessCallback, qrCodeErrorCallback]);
+  }, [showScanner]);
 
-  const handleScanAgain = () => {
-    if (html5QrcodeScannerRef.current) {
-      html5QrcodeScannerRef.current.clear(); // Clear the scanner
-      html5QrcodeScannerRef.current.render(
-        qrCodeSuccessCallback,
-        qrCodeErrorCallback
-      ); // Render the scanner again
-    }
-    setScanResult({
-      Length: "0",
-      Waist: "0",
-      Hip: "0",
-      Thigh: "0",
-      Knee: "0",
-      Ankle: "0",
-      name: "Altamas",
-      phoneNumber: "9265704645"
-    }); // Reset scan result
+  const handleReset = () => {
+    setScanResult(null);
+    setShowScanner(false);
+    setError(null);
+    setResetTriggered(prev => !prev);  // Toggle this to trigger useEffect in FileUploader
   };
 
   const renderTableRows = () => {
-    return Object.entries(scanResult).map(([key, value]) => (
-      <tr key={key}>
-        <td>{key}</td>
-        <td>{value}</td>
-      </tr>
-    ));
+    if (!scanResult) return null;
+    
+    const { name, phoneNumber, ...measurements } = scanResult;
+    return (
+      <>
+        <tr>
+          <td className="border border-gray-400 px-4 py-2">Name</td>
+          <td className="border border-gray-400 px-4 py-2">{name}</td>
+        </tr>
+        <tr>
+          <td className="border border-gray-400 px-4 py-2">Phone Number</td>
+          <td className="border border-gray-400 px-4 py-2">{phoneNumber}</td>
+        </tr>
+        {Object.entries(measurements).map(([key, value]) => (
+          <tr key={key}>
+            <td className="border border-gray-400 px-4 py-2">{key}</td>
+            <td className="border border-gray-400 px-4 py-2">{value}</td>
+          </tr>
+        ))}
+      </>
+    );
   };
 
+  async function processFile(selectedFile) {
+    try {
+      const qrCode = await scanFile(selectedFile);
+      if (qrCode) {
+        setScanResult(JSON.parse(qrCode));
+        setError(null);
+      } else {
+        setScanResult(null);
+        setError("No QR code found in the uploaded file.");
+      }
+    } catch (e) {
+      console.error(e);
+      setScanResult(null);
+      setError(e.name === "InvalidPDFException" ? "Invalid PDF file." : "An error occurred while processing the file.");
+    }
+  }
+
   return (
-    <section>
-      <h2>QR Code Reader</h2>
-      <div id="reader"></div>
-      <button onClick={handleScanAgain}>Scan Again</button>
-      {scanResult === "No result" ? (
-        <p>Scan a QR code or upload a PDF file</p>
-      ) : (
-        <table>
+    <section className="text-white">
+      <h2 className="text-2xl font-bold mb-4">QR Code Reader</h2>
+      {!showScanner && (
+        <>
+          <ImageUploader
+            onFileSelectError={(err) => {
+              console.error(err.error);
+              setError(err.error);
+            }}
+            onFileSelectSuccess={processFile}
+            resetTriggered={resetTriggered}
+          />
+          <button 
+            onClick={() => setShowScanner(true)}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+          >
+            Scan QR Code
+          </button>
+        </>
+      )}
+      {showScanner && (
+        <>
+          <div id="reader"></div>
+          <button 
+            onClick={() => setShowScanner(false)}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
+          >
+            Cancel Scan
+          </button>
+        </>
+      )}
+      {error && (
+        <p className="text-red-500 mt-4">{error}</p>
+      )}
+      {scanResult && (
+        <table className="mt-4 w-full border-collapse">
           <thead>
             <tr>
-              <th>Key</th>
-              <th>Value</th>
+              <th className="border border-gray-400 px-4 py-2">Field</th>
+              <th className="border border-gray-400 px-4 py-2">Value</th>
             </tr>
           </thead>
           <tbody>{renderTableRows()}</tbody>
         </table>
+      )}
+      {(scanResult || error) && (
+        <button 
+          onClick={handleReset}
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+        >
+          Reset
+        </button>
       )}
     </section>
   );
