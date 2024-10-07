@@ -14,7 +14,7 @@ const EmployeeProfile = () => {
     useAxios({
       axiosInstance: axios,
       method: "GET",
-      url: `/employee/${id}?role=${location.state}&limit=${10}`,
+      url: `/employees/${id}?role=${location.state}&limit=${10}`,
       requestConfig: {
         headers: {
           "Content-Language": "en-US",

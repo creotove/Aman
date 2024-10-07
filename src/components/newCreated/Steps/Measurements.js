@@ -21,7 +21,7 @@ const MeasurementStepper = () => {
 
   const checkMeasurements = async () => {
     try {
-      const res = await axios.post("/checkMeasurements", {
+      const res = await axios.post("/measurements/checkMeasurements", {
         name,
         phoneNumber,
         clothingItems: takeMeasurementsOf,
@@ -46,7 +46,7 @@ const MeasurementStepper = () => {
         }
       );
       const measurements = addMeasurementof.find((item) => item.name === name);
-      const res = await axios.post(`/measurement/${customerId}`, {
+      const res = await axios.post(`/measurements/${customerId}`, {
         name,
         measurements: measurements.measurements,
       });

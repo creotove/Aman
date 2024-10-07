@@ -20,7 +20,7 @@ const CustomerInfo = () => {
   const [clothings] = useAxios({
     axiosInstance: axios,
     method: "GET",
-    url: "/clothingItems",
+    url: "/store/clothingItems",
     requestConfig: {
       headers: {
         "Content-Language": "en-US",

@@ -10,7 +10,7 @@ const WorkList = ({ id, date, earned, index }) => {
 
   const openModal = async () => {
     setModalOpen(true);
-    const res = await axios.get(`/work/${id}`);
+    const res = await axios.get(`/employees/work/${id}`);
     if (res.data.success) {
       const work = res.data.data;
       const modalContent = <DisplayWork work={work}/>

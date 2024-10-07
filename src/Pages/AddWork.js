@@ -28,7 +28,7 @@ const AddWork = () => {
 
   const getClothings = async () => {
     try {
-      const res = await axios.get("/clothingItems");
+      const res = await axios.get("/store/clothingItems");
       if (res.data.success) {
         setClothings(res.data.data);
       }
@@ -59,7 +59,7 @@ const AddWork = () => {
 
     try {
       const res = await axios.post(
-        `/addWork/${employeeProfile?._id}`,
+        `/employees/work/${employeeProfile?._id}`,
         dataToSubmit
       );
       if (res.data.success) {

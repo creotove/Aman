@@ -10,7 +10,7 @@ const Dashboard = memo(() => {
   const [analytics, error, loading] = useAxios({
     axiosInstance: axios,
     method: "GET",
-    url: "/analytics",
+    url: "/admin/analytics",
   });
   return (
     <>

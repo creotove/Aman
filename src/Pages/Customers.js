@@ -35,11 +35,11 @@ const Customers = () => {
       let res;
       if (isPhoneNumber) {
         res = await axios.get(
-          `/searchCustomerBasedOnPhoneNumber/${identifier}`
+          `customers/searchCustomerBasedOnPhoneNumber/${identifier}`
         );
       } else {
         res = await axios.get(
-          `/searchCustomersBasedOnName/${identifier}`
+          `customers/searchCustomersBasedOnName/${identifier}`
         );
       }
       if (res.data.success) {
@@ -64,16 +64,17 @@ const Customers = () => {
     stitchCustomerList,
     stitchCustomerListError,
     stitchCustomerListLoading,
-  ] = useAxios({
+  ] =
+   useAxios({
     axiosInstance: axios,
     method: "GET",
-    url: "/stitchCustomerList",
+    url: "/sales/stitchCustomerList",
   });
   const [soldCustomerList, soldCustomerListError, soldCustomerListLoading] =
     useAxios({
       axiosInstance: axios,
       method: "GET",
-      url: "/soldCustomerList",
+      url: "/sales/soldCustomerList",
     });
 
   return (

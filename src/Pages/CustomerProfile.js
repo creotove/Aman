@@ -16,7 +16,7 @@ const CustomerProfile = () => {
   const [customerProfile, error] = useAxios({
     axiosInstance: axios,
     method: "GET",
-    url: `/customer/${id}`,
+    url: `/customers/${id}`,
     requestConfig: {
       headers: {
         "Content-Language": "en-US",

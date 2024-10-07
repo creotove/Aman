@@ -31,7 +31,7 @@ const EditEmployeeProfile = () => {
 
     try {
       const res = await axios.patch(
-        `/updateEmployee/${employeeProfile?._id}`,
+        `/employees/${employeeProfile?._id}`,
         dataToSubmit
       );
       if (res.data.success) {

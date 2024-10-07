@@ -53,7 +53,7 @@ const WholeSale = () => {
         address,
       };
 
-      const res = await axios.post("/wholeSaler", data);
+      const res = await axios.post("/purchases/wholeSaler", data);
       if (res.data.success) {
         setToastMsg("Saved");
         setToastType("success");
@@ -74,7 +74,7 @@ const WholeSale = () => {
 
   const getWholeSalers = async () => {
     try {
-      const res = await axios.get("/wholeSalers");
+      const res = await axios.get("/purchases/wholeSalers");
       if (res.data.success) {
         setWholeSalers(res.data.data);
       }

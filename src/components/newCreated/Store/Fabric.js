@@ -30,7 +30,7 @@ const Fabric = () => {
 
   const getWholeSalerIdName = async () => {
     try {
-      const res = await axios.get("/wholeSalerIdName");
+      const res = await axios.get("/purchases/wholeSalerIdName");
       if (res.data.success) {
         setWholeSalerNames(res.data.data);
       }
@@ -45,7 +45,7 @@ const Fabric = () => {
   const getFabrics = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/fabricItems");
+      const res = await axios.get("/store/fabrics");
       if (res.data.success) {
         setFabrics(res.data.data);
       }

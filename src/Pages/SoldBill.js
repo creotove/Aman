@@ -20,7 +20,7 @@ const SoldBill = () => {
     e.preventDefault();
     e.stopPropagation();
     try {
-      const res = await axios.post("/soldBill", {
+      const res = await axios.post("/sales/soldBill", {
         name,
         phoneNumber,
         totalAmt,

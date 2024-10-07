@@ -24,7 +24,7 @@ const GiveMoney = () => {
 
     try {
       const res = await axios.post(
-        `/giveMoneyToEmployee/${employeeProfile?._id}`,
+        `/employees/moneyToEmployee/${employeeProfile?._id}`,
         { amount }
       );
       if (res.data.success) {

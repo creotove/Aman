@@ -25,7 +25,7 @@ const Bill = () => {
 
   const getStitchingAmountsForCustomer = async () => {
     try {
-      const res = await axios.get("/clothingItems");
+      const res = await axios.get("/store/clothingItems");
       if (res.data.success) {
         const clothingItems = res.data.data;
         const items = clothingItems.filter((item) =>

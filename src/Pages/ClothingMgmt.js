@@ -5,6 +5,8 @@ import axios from "../apis/admin";
 import useToast from "../hooks/useToast";
 import Toast from "../components/newCreated/Toast";
 
+// TODO:
+// there is a bug when updating a clothing item and then adding a new one it doesnot added but the previous one is updated
 const ClothingMgmt = () => {
   const [accordions, setAccordion] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -66,9 +68,9 @@ const ClothingMgmt = () => {
       };
       let res;
       if (editMode) {
-        res = await axios.patch(`/clothingItem/${editId}`, data);
+        res = await axios.patch(`/store/clothingItems/${editId}`, data);
       } else {
-        res = await axios.post("/clothingItem", data);
+        res = await axios.post("/store/clothingItems", data);
       }
       if (res.data.success) {
         setShowToast(true);
@@ -93,7 +95,7 @@ const ClothingMgmt = () => {
   const getClotingItems = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/clothingItems");
+      const res = await axios.get("/store/clothingItems");
       if (res.data.success) {
         const clothingItems = res?.data?.data;
         if (clothingItems.length === 0) {
@@ -136,7 +138,7 @@ const ClothingMgmt = () => {
   // delete data from server
   const handleDelete = async (id) => {
     try {
-      const res = await axios.delete(`/clothingItem/${id}`);
+      const res = await axios.delete(`/store/clothingItems/${id}`);
       if (res.data.success) {
         setShowToast(true);
         setToastMsg(res.data.message);

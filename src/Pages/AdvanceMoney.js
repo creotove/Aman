@@ -34,7 +34,7 @@ const AdvanceMoney = () => {
       return;
     }
     try {
-      const res = await axios.post(`/removeAdvance/${employeeProfile?._id}`, {
+      const res = await axios.post(`/employees/takeMoneyThatWasGivenAdvanceToEmployee/${employeeProfile?._id}`, {
         amount,
       });
       if (res.data.success) {

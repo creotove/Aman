@@ -31,7 +31,7 @@ const StitchBill = () => {
     };
     try {
       handlePrint(measurements);
-      const res = await axios.post("/stitchBill", data);
+      const res = await axios.post("/sales/stitchBill", data);
       if (res.data.success) {
         navigate("/customers");
       }
