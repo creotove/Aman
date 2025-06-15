@@ -176,7 +176,7 @@ const ClothingMgmt = () => {
       )}
       <section>
         <div className="grid md:grid-cols-12 gap-4 text-white">
-          <div className="md:col-span-7 bg-[#0b0b0b] border border-[#1b1b1b] smallContainer md:min-h-screen radius">
+          <div className="md:col-span-7 border border-[#1b1b1b] smallContainer md:min-h-screen radius">
             <form
               autoComplete="off"
               onSubmit={(e) => {
@@ -245,7 +245,7 @@ const ClothingMgmt = () => {
                 </div>
               </div>
               {/* measurement name*/}
-              <div className="my-3">
+              <div className="my-3 ">
                 <label className="ms-1 block">Measurement names</label>
                 <input
                   type="text"
@@ -263,7 +263,7 @@ const ClothingMgmt = () => {
                 </p>
               </div>
               <div
-                className={`bg-black border border-[#525252] p-4 radius min-h-[10rem] flex flex-wrap gap-4 ${measurementNames.length > 0
+                className={`border border-[#525252] p-4 radius min-h-[10rem] flex flex-wrap gap-4 ${measurementNames.length > 0
                   ? ""
                   : "cursor-not-allowed pointer-events-none"
                   }`}
@@ -286,7 +286,7 @@ const ClothingMgmt = () => {
               </div>
             </form>
           </div>
-          <div className="md:col-span-5 radius w-full">
+          <div className="md:col-span-5 border border-[#1b1b1b] radius w-full ">
             {accordions &&
               accordions.length > 0 ?
               accordions.map((accordion, i) => (
@@ -309,7 +309,7 @@ const ClothingMgmt = () => {
                   <div className="loader"></div>
                 </div>
               ) : (
-                <div className="md:col-span-5 radius flex bg-[#0b0b0b] border border-[#1b1b1b]
+                <div className="md:col-span-5 radius flex border border-[#1b1b1b]
                 justify-center items-center h-full
                 smallContainer">
                   <p className="text-[#FC3447]">No Clothings Items found</p>

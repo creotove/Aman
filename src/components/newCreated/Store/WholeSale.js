@@ -100,7 +100,7 @@ const WholeSale = () => {
           }} // Close the toast
         />
       )}
-      <div className="bg-[#0b0b0b] border border-[#1b1b1b] smallContainer radius overflow-auto no-scrollbar md:col-span-7 text-white">
+      <div className="border border-[#1b1b1b] smallContainer radius overflow-auto no-scrollbar md:col-span-7 text-white">
         <table className="w-full text-sm text-left rtl:text-right ">
           <thead className="text-xs inputBox subText uppercase">
             <tr className="">
@@ -161,7 +161,7 @@ const WholeSale = () => {
           </tbody>
         </table>
       </div>
-      <div className="bg-[#0b0b0b] border border-[#1b1b1b] h-[80vh] smallContainer radius overflow-auto no-scrollbar md:col-span-5">
+      <div className="border border-[#1b1b1b] h-[80vh] smallContainer radius overflow-auto no-scrollbar md:col-span-5">
         <form>
           <div className="flex flex-wrap gap-4">
             {/* Name */}

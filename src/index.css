@@ -7,16 +7,16 @@
 @import 'tailwindcss/utilities';
 
 .listw {
-  border-bottom: 1px solid #1b1b1b;
-  border-left: 1px solid #1b1b1b;
-  border-right: 1px solid #1b1b1b;
+  border-bottom: 1px solid #e5e5e5;
+  border-left: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
   border-bottom-left-radius: .9rem;
   border-bottom-right-radius: .9rem;
 }
 
 .listw div:nth-last-child(even) {
-  border-top: 1px solid #1b1b1b;
-  border-bottom: 1px solid #1b1b1b;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
   padding: .6rem;
 }
 
@@ -26,22 +26,22 @@
 
 .listw div:last-child() {
   border-radius: 0 0 .9rem .9rem;
-  border-bottom: 1px solid #1b1b1b;
+  border-bottom: 1px solid #e5e5e5;
   padding: 0;
 }
 
 .dashboard {
-  background: #000;
+  background: #ffffff;
 }
 
 .btn-stroke {
-  border: 1px solid #000;
-  color: #484848;
+  border: 1px solid #ffffff;
+  color: #757575;
 }
 
 .subText {
   font-size: 0.875rem;
-  color: #8A8A8A;
+  color: #757575;
 }
 
 .radius {
@@ -49,12 +49,12 @@
 }
 
 .inputBox {
-  border: 2px solid #1b1b1b;
-  background-color: #000;
+  border: 2px solid #e5e5e5;
+  background-color: #ffffff;
   border-radius: 0.9rem;
   padding: 0.5rem;
   padding-left: 1rem;
-  color: #fff;
+  color: #000;
 }
 
 .delete {
@@ -73,10 +73,9 @@
 }
 
 .inputBox:hover {
-  background-color: #070707;
-  background: linear-gradient(180deg, #1e1e1e, #121212);
-  border: 2px solid #525252;
-
+  background-color: #f8f8f8;
+  background: linear-gradient(180deg, #e1e1e1, #ededed);
+  border: 2px solid #adadad;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -88,24 +87,23 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .slot {
-  background-color: #0b0b0b;
-  border: 0.5px solid #1b1b1b;
+  background-color: #f4f4f4;
+  border: 0.5px solid #e5e5e5;
 }
 
 .slot:hover {
-  background: linear-gradient(180deg, #1e1e1e, #121212);
+  background: linear-gradient(180deg, #e1e1e1, #ededed);
 }
 
-
 .slotNumbers {
-  color: #c3c3c3;
+  color: #3c3c3c;
   font-weight: 900;
 }
 
 .myBtn {
-  background: linear-gradient(180deg, #1e1e1e, #121212);
-  color: #d9d9d9;
-  border: 2px solid #1b1b1b;
+  background: linear-gradient(180deg, #e1e1e1, #ededed);
+  color: #262626;
+  border: 2px solid #e5e5e5;
   padding: 0.5rem 1.75rem;
   border-radius: 0.9rem;
   cursor: pointer;
@@ -115,7 +113,7 @@ input[type=number]::-webkit-outer-spin-button {
 .myBtn-success {
   background: rgb(134 239 172);
   color: rgb(22 101 52);
-  border: 2px solid #1b1b1b;
+  border: 2px solid #e5e5e5;
   padding: 0.5rem 1.75rem;
   border-radius: 0.9rem;
   cursor: pointer;
@@ -125,27 +123,26 @@ input[type=number]::-webkit-outer-spin-button {
 .myBtn-danger {
   background: rgb(252 165 165);
   color: rgb(153 27 27);
-  border: 2px solid #1b1b1b;
+  border: 2px solid #e5e5e5;
   padding: 0.5rem 1.75rem;
   border-radius: 0.9rem;
   cursor: pointer;
   transition: all ease;
 }
 
-
 .myBtn:hover {
-  border: 2px solid #1b1b1b;
-  background: #131313;
-  color: #fff;
+  border: 2px solid #e5e5e5;
+  background: #ececec;
+  color: #000;
 }
 
 .myLink {
-  color: #fff;
+  color: #000;
   text-decoration: none;
 }
 
 .myLink:hover {
-  color: #fff;
+  color: #000;
   text-decoration: underline;
 }
 
@@ -156,41 +153,41 @@ input[type=number]::-webkit-outer-spin-button {
 
 .headerText {
   font-size: 1.3rem;
-  color: #fff;
+  color: #000;
   font-weight: 600;
 }
 
 .helperText {
   font-size: 0.9rem;
-  color: #8A8A8A;
+  color: #757575;
 }
 
 .nav_item.active {
-  background: #131313;
-  color: #fff;
-  border: 0.5px solid #1b1b1b;
+  background: #ececec;
+  color: #000;
+  border: 0.5px solid #e5e5e5;
 }
 
 label {
-  color: #fff;
+  color: #000;
   white-space: nowrap;
 }
 
 .icon-bg {
-  background: #f2f2f2;
+  background: #0d0d0d;
   border-radius: 50%;
   padding: 0.5rem;
 }
 
 .pill {
-  color: #fff;
+  color: #000;
   padding: 0rem .7rem;
-  background: linear-gradient(180deg, #1e1e1e, #121212);
+  background: linear-gradient(180deg, #e1e1e1, #ededed);
 }
 
 .dropFiles {
   margin-top: 2rem;
-  background: white;
+  background: #f8f8f8;
   padding: 5rem;
   border-radius: 15;
   border-style: dashed;
@@ -231,7 +228,7 @@ label {
   position: absolute;
   inset: 0px;
   border-radius: 50%;
-  border: 5px solid #FFF;
+  border: 5px solid #000;
   animation: prixClipFix 2s linear infinite;
 }
 

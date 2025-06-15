@@ -5,34 +5,28 @@
     align-items: center;
     gap: 2.125rem;
     flex-shrink: 0;
-    background: #0b0b0b;
-    /* border-radius: 0rem 1.625rem 1.625rem 0rem; */
-    /* background: var(--main-white, #FFF); */
+    background: var(--bg-secondary);
     overflow: hidden;
 }
-
 
 .menu_item {
     cursor: pointer;
     padding: 0.94rem 1rem;
     margin-block: .2rem;
-    color: #d9d9d9;
-    
+    color: var(--text-secondary);
 }
 
 .menu_item.active {
     border-radius: 0.375rem;
-    background: #131313;
-    color: #fff;
-    border: 0.5px solid #1b1b1b;
-    
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 0.5px solid var(--border-primary);
 }
 
-
 .menu_item:hover {
-    background: #131313;
+    background: var(--bg-tertiary);
     border-radius: 0.375rem;
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .logoutItem {
@@ -44,12 +38,9 @@
     font-family: Mulish;
     padding: 0.94rem 1.75rem;
     margin-block: .2rem;
-
 }
 
 .logoutItem:hover {
-    color: white;
-
+    color: var(--text-primary);
     border-radius: 0.375rem;
-
 }

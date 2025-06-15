@@ -133,7 +133,7 @@ const Profile = () => {
           </div>
         </Modal>
       )}
-      <div className="flex flex-wrap gap-4 bg-[#0b0b0b] border border-[#1b1b1b] smallContainer radius">
+      <div className="flex flex-wrap gap-4 border border-[#1b1b1b] smallContainer radius">
         {/* Password */}
         <div className="mt-3 flex gap-4">
           <button

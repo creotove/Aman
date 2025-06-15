@@ -16,7 +16,6 @@ const NewEmployee = () => {
       e.preventDefault();
       e.stopPropagation();
       const data = { name, phoneNumber, role, aadharnumber, monthly, avatar };
-      console.log(data);
       const res = await axios.post("/employees", data, {
         headers: {
           "Content-Type": "multipart/form-data",

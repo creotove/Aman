@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
+import "./theme.css";
 import { Suspense } from "react";
 import DefaultLayout from "./Layout/DefaultLayout";
 import { Navigate } from "react-router-dom";

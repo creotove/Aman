@@ -1,0 +1,221 @@
+/* Base styles */
+* {
+  font-family: "Poppins", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Dark Theme Styles */
+.dark-theme {
+  --bg-primary: #000;
+  --bg-secondary: #0b0b0b;
+  --bg-tertiary: #131313;
+  --bg-hover: #070707;
+  --bg-input: #000;
+  --bg-slot: #0b0b0b;
+  --bg-dropdown: #f2f2f2;
+  
+  --border-primary: #1b1b1b;
+  --border-secondary: #525252;
+  --border-light: #1b1b1b;
+  
+  --text-primary: #fff;
+  --text-secondary: #d9d9d9;
+  --text-muted: #8A8A8A;
+  --text-numbers: #c3c3c3;
+  --text-helper: #8A8A8A;
+  
+  --gradient-primary: linear-gradient(180deg, #1e1e1e, #121212);
+  --gradient-hover: linear-gradient(180deg, #1e1e1e, #121212);
+  --gradient-input-hover: linear-gradient(180deg, #1e1e1e, #121212);
+}
+
+/* Light Theme Styles */
+.light-theme {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f4f4;
+  --bg-tertiary: #ececec;
+  --bg-hover: #f8f8f8;
+  --bg-input: #ffffff;
+  --bg-slot: #f4f4f4;
+  --bg-dropdown: #0d0d0d;
+  
+  --border-primary: #e5e5e5;
+  --border-secondary: #adadad;
+  --border-light: #e5e5e5;
+  
+  --text-primary: #000;
+  --text-secondary: #262626;
+  --text-muted: #757575;
+  --text-numbers: #3c3c3c;
+  --text-helper: #757575;
+  
+  --gradient-primary: linear-gradient(180deg, #e1e1e1, #ededed);
+  --gradient-hover: linear-gradient(180deg, #e1e1e1, #ededed);
+  --gradient-input-hover: linear-gradient(180deg, #e1e1e1, #ededed);
+}
+
+/* Apply theme variables to components */
+.listw {
+  border-bottom: 1px solid var(--border-primary);
+  border-left: 1px solid var(--border-primary);
+  border-right: 1px solid var(--border-primary);
+  border-bottom-left-radius: .9rem;
+  border-bottom-right-radius: .9rem;
+}
+
+.listw div:nth-last-child(even) {
+  border-top: 1px solid var(--border-primary);
+  border-bottom: 1px solid var(--border-primary);
+  padding: .6rem;
+}
+
+.listw div:nth-last-child(odd) {
+  padding: .6rem;
+}
+
+.listw div:last-child() {
+  border-radius: 0 0 .9rem .9rem;
+  border-bottom: 1px solid var(--border-primary);
+  padding: 0;
+}
+
+.dashboard {
+  background: var(--bg-primary);
+}
+
+.btn-stroke {
+  border: 1px solid var(--bg-primary);
+  color: var(--text-muted);
+}
+
+.subText {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.radius {
+  border-radius: .9rem;
+}
+
+.inputBox {
+  border: 2px solid var(--border-primary);
+  background-color: var(--bg-input);
+  border-radius: 0.9rem;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  color: var(--text-primary);
+}
+
+.inputBox:hover {
+  background-color: var(--bg-hover);
+  background: var(--gradient-input-hover);
+  border: 2px solid var(--border-secondary);
+}
+
+.slot {
+  background-color: var(--bg-slot);
+  border: 0.5px solid var(--border-primary);
+}
+
+.slot:hover {
+  background: var(--gradient-hover);
+}
+
+.slotNumbers {
+  color: var(--text-numbers);
+  font-weight: 900;
+}
+
+.myBtn {
+  background: var(--gradient-primary);
+  color: var(--text-secondary);
+  border: 2px solid var(--border-primary);
+  padding: 0.5rem 1.75rem;
+  border-radius: 0.9rem;
+  cursor: pointer;
+  transition: all ease;
+}
+
+.myBtn:hover {
+  border: 2px solid var(--border-primary);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.myLink {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.myLink:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+.headerText {
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.helperText {
+  font-size: 0.9rem;
+  color: var(--text-helper);
+}
+
+.nav_item.active {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 0.5px solid var(--border-primary);
+}
+
+label {
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.icon-bg {
+  background: var(--bg-dropdown);
+  border-radius: 50%;
+  padding: 0.5rem;
+}
+
+.pill {
+  color: var(--text-primary);
+  padding: 0rem .7rem;
+  background: var(--gradient-primary);
+}
+
+/* Theme toggle button styles */
+.theme-toggle-container {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid var(--border-primary);
+}
+
+.theme-toggle-btn {
+  background: var(--gradient-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg-tertiary);
+  transform: scale(1.05);
+}
+
+
+
+/* =================================================================== */
